@@ -1,0 +1,32 @@
+<div class="addEmployee">
+  <h2>Add New Employee</h2>
+
+  <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
+
+    <div class="formGroup">
+      <label for="name">Name</label>
+      <input id="name" name="name" ngModel required />
+    </div>
+
+    <div class="formGroup">
+      <label for="manager">Manager</label>
+      <input id="manager" name="manager" ngModel />
+    </div>
+
+    <div class="formGroup">
+      <label for="totalLeave">Total Leave</label>
+      <input id="totalLeave" type="number" name="totalLeave" ngModel />
+    </div>
+
+    <div class="formGroup">
+      <label for="currentLeave">Current Leave</label>
+      <input id="currentLeave" type="number" name="currentLeave" ngModel />
+    </div>
+
+    <div class="formActions">
+      <button type="submit" class="saveBtn">Save</button>
+      <button type="button" class="cancelBtn" routerLink="/layout">Cancel</button>
+    </div>
+
+  </form>
+</div>

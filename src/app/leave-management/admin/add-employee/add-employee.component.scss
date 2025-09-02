@@ -1,0 +1,75 @@
+.addEmployee {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Open Sans', sans-serif;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #333;
+  }
+
+  .formGroup {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+
+      &:focus {
+        border-color: #1c352d;
+        outline: none;
+        box-shadow: 0 0 4px rgba(28, 53, 45, 0.3);
+      }
+    }
+  }
+
+  .formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 1.5rem;
+
+    .saveBtn {
+      background-color: #1c352d;
+      color: #fff;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #2f5442;
+      }
+    }
+
+    .cancelBtn {
+      background-color: #ccc;
+      color: #333;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #b5b5b5;
+      }
+    }
+  }
+}

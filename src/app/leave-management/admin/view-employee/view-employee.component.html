@@ -1,0 +1,81 @@
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<div class="layout">
+  <!-- Header -->
+  <header class="header">
+    <button class="menu-btn" (click)="toggleSidebar()">☰</button>
+  </header>
+
+  <div class="body">
+    <!-- Sidebar -->
+    <aside class="sidebar" [class.open]="sidebarOpen">
+      <div class="sd-content">
+        <div class="dropdown-container">
+          <label for="userSelect">Role</label>
+          <select id="userSelect" class="userSelect">
+            <option value="" disabled selected>-- Choose a user --</option>
+            <option value="user1">Admin</option>
+            <option value="user2">Manager</option>
+            <option value="user3">Employee</option>
+          </select>
+        </div>
+
+        <div class="section">
+          <label>Employee</label>
+          <add-button [buttonLabel]="'View All'" [route]="'/employee'"></add-button>
+          <add-button [buttonLabel]="'Add Employee'" [route]="'/employee/add'"></add-button>
+        </div>
+
+        <div class="section">
+          <label>Leaves</label>
+          <add-button [buttonLabel]="'View All'" [route]="'/leaves'"></add-button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="headLabel">
+        All Employees
+      </div>
+      <div class="btnRight">
+        <div class="contentBtn">
+          <add-button [buttonLabel]="'View All'" [route]="'/employee'"></add-button>
+        </div>
+      </div>
+      <table class="employeeTable">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Manager</th>
+          <th>Total Leave</th>
+          <th>Current</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (emp of employees; track emp.id) {
+            <tr>
+              <td>{{ emp.id }}</td>
+              <td>{{ emp.name }}</td>
+              <td>{{ emp.manager }}</td>
+              <td>{{ emp.totalLeave }}</td>
+              <td>{{ emp.current }}</td>
+              <td>
+                <button class="editBtn" (click)="editEmployee(emp)">Edit</button>
+              </td>
+            </tr> }
+        </tbody>
+      </table>
+    </main>
+
+  </div>
+</div>
+
+
+<!--    &lt;!&ndash; Main content &ndash;&gt;-->
+<!--    <main class="content">-->
+<!--      <div class="placeholder">Page content here</div>-->
+<!--    </main>-->
+
