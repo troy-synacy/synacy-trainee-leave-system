@@ -11,12 +11,12 @@
     <aside class="sidebar" [class.open]="sidebarOpen">
       <div class="sd-content">
         <div class="dropdown-container">
-          <label for="userSelect">Role</label>
-          <select id="userSelect" class="userSelect">
-            <option value="" disabled selected>-- Choose a user --</option>
-            <option value="user1">Admin</option>
-            <option value="user2">Manager</option>
-            <option value="user3">Employee</option>
+          <label for="roleSelect">Role</label>
+          <select id="roleSelect" class="userSelect" [(ngModel)]="selectedRole">
+            <option value="" disabled>-- Choose a role --</option>
+            <option value="admin">Admin</option>
+            <option value="manager">Manager</option>
+            <option value="employee">Employee</option>
           </select>
         </div>
 
@@ -33,49 +33,9 @@
       </div>
     </aside>
 
-    <!-- Content -->
+    <!-- Main content -->
     <main class="content">
-      <div class="headLabel">
-        All Employees
-      </div>
-      <div class="btnRight">
-        <div class="contentBtn">
-          <add-button [buttonLabel]="'View All'" [route]="'/employee'"></add-button>
-        </div>
-      </div>
-      <table class="employeeTable">
-        <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Manager</th>
-          <th>Total Leave</th>
-          <th>Current</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-          @for (emp of employees; track emp.id) {
-            <tr>
-              <td>{{ emp.id }}</td>
-              <td>{{ emp.name }}</td>
-              <td>{{ emp.manager }}</td>
-              <td>{{ emp.totalLeave }}</td>
-              <td>{{ emp.current }}</td>
-              <td>
-                <button class="editBtn" (click)="editEmployee(emp)">Edit</button>
-              </td>
-            </tr> }
-        </tbody>
-      </table>
+      <router-outlet></router-outlet>
     </main>
-
   </div>
 </div>
-
-
-<!--    &lt;!&ndash; Main content &ndash;&gt;-->
-<!--    <main class="content">-->
-<!--      <div class="placeholder">Page content here</div>-->
-<!--    </main>-->
-

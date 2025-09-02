@@ -12,6 +12,12 @@
     font-weight: 600;
     font-size: 1.3rem;
     color: #333;
+    text-align: center;  // center the title
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
   }
 
   .formGroup {
@@ -21,7 +27,7 @@
 
     label {
       margin-bottom: 6px;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #555;
     }
 
