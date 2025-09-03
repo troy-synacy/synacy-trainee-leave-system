@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #f8f9fa;
+}
+
+.main-layout {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+/* Routed page content area */
+.page-content {
+  position: relative;
+  margin-top: 56px; /* Below the fixed header */
+  margin-left: 220px; /* To the right of the fixed sidebar */
+  height: calc(100vh - 56px); /* Full height minus header */
+  padding: 20px;
+  background: white;
+  overflow-y: auto;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .page-content {
+    margin-left: 0; /* Sidebar collapses on mobile */
+  }
+}

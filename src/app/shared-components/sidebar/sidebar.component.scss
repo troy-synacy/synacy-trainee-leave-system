@@ -1,0 +1,135 @@
+//.sidebar {
+//  width: 220px;
+//  background: #2c3e50;
+//  color: #ecf0f1;
+//  padding: 1rem;
+//  font-family: Arial, sans-serif;
+//  display: flex;
+//  flex-direction: column;
+//  height: calc(100vh - 56px);
+//  position: fixed;
+//  top: 56px;
+//  left: 0;
+//  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.2);
+//  transform: translateX(0);
+//  transition: transform 0.3s ease-in-out;
+//  z-index: 1000;
+//
+//  @media (max-width: 768px) {
+//    transform: translateX(-100%);
+//
+//    &.open {
+//      transform: translateX(0);
+//    }
+//  }
+//
+//  .dropdown-container {
+//    margin-bottom: 20px;
+//
+//    label {
+//      display: block;
+//      font-weight: 600;
+//      font-size: 0.9rem;
+//      margin-bottom: 6px;
+//      color: #bdc3c7;
+//    }
+//
+//    .userSelect {
+//      width: 100%;
+//      padding: 8px 10px;
+//      border: 1px solid #7f8c8d;
+//      border-radius: 6px;
+//      background-color: #ecf0f1;
+//      color: #2c3e50;
+//      font-size: 0.9rem;
+//      cursor: pointer;
+//    }
+//  }
+//
+//  .section {
+//    margin-bottom: 30px;
+//
+//    label {
+//      font-weight: bold;
+//      font-size: 1rem;
+//      margin-bottom: 10px;
+//      display: block;
+//      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+//      padding-bottom: 4px;
+//    }
+//
+//    add-button {
+//      display: block;
+//      margin: 6px 0;
+//    }
+//  }
+//}
+
+.sidebar {
+  width: 220px;
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 56px);
+  position: fixed;
+  top: 56px; /* Start below the header */
+  left: 0;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  z-index: 1000;
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    transform: translateX(-100%);
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  /* Dropdown container styling */
+  .dropdown-container {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #bdc3c7;
+    }
+
+    .userSelect {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #7f8c8d;
+      border-radius: 6px;
+      background-color: #ecf0f1;
+      color: #2c3e50;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+  }
+
+  /* Section headers and links */
+  .section {
+    margin-bottom: 30px;
+
+    label {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      display: block;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 4px;
+    }
+
+    add-button {
+      display: block;
+      margin: 6px 0;
+    }
+  }
+}

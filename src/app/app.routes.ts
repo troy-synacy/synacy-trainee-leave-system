@@ -1,18 +1,19 @@
 import { Routes } from '@angular/router';
-import { ViewEmployeeComponent } from './leave-management/admin/view-employee/view-employee.component';
-import {AddEmployeeComponent} from './leave-management/admin/add-employee/add-employee.component';
-import {EmployeeListComponent} from './leave-management/admin/view-employee/employee-list.component';
-import {AllLeavesComponent} from './leave-management/admin/all-leaves/all-leaves.component';
+import {EmployeeListComponent} from './pages/admin/view-employee/employee-list.component';
+import {ViewEmployeeComponent} from './pages/admin/view-employee/view-employee.component';
+import {TestViewComponent} from './pages/admin/test-view/test-view.component';
+import {AppComponent} from './app.component';
 
-export const routes: Routes = [
+export const routes: Routes = [{
+  path: 'test', component: TestViewComponent,
+
+},
   {
-    path: '',
-    component: ViewEmployeeComponent, // acts as layout
-    children: [
-      { path: 'employee', component: EmployeeListComponent },
-      { path: 'employee/add', component: AddEmployeeComponent },
-      { path: 'employee/all-leaves', component: AllLeavesComponent},
-      { path: '', redirectTo: 'employee', pathMatch: 'full' }
-    ]
+    path: 'view-employee', component: EmployeeListComponent,
+  },
+  {
+    path: '**', redirectTo: 'test'
   }
 ];
+
+
