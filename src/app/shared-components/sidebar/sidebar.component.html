@@ -1,23 +1,8 @@
-<aside class="sidebar" [class.open]="open">
-  <div class="sd-content">
-    <div class="dropdown-container">
-      <label for="roleSelect">Role</label>
-      <select id="roleSelect" class="userSelect" [(ngModel)]="selectedRole">
-        <option value="admin">Admin</option>
-        <option value="manager">Manager</option>
-        <option value="employee">Employee</option>
-      </select>
-    </div>
-
-    <div class="section">
-      <label>Employee</label>
-      <add-button [buttonLabel]="'View All'" [route]="'/employee'"></add-button>
-      <add-button [buttonLabel]="'Add Employee'" [route]="'/employee/add'"></add-button>
-    </div>
-
-    <div class="section">
-      <label>Leaves</label>
-      <add-button [buttonLabel]="'View All'" [route]="'/employee/all-leaves'"></add-button>
-    </div>
-  </div>
+<aside class="sidebar" [class.closed]="!open">
+  <nav class="nav">
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">🏠 Home</a>
+    <a routerLink="/about" routerLinkActive="active">ℹ️ About</a>
+    <a routerLink="/contact" routerLinkActive="active">✉️ Contact</a>
+    <add-button [buttonLabel]="'View'" [route]="'/view-employee'"></add-button>
+  </nav>
 </aside>

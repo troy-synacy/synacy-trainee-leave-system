@@ -1,16 +1,10 @@
-<!--<app-header></app-header>-->
-<!--<app-sidebar></app-sidebar>-->
 
-<!--<div class="page-content">-->
-<!--  <router-outlet></router-outlet>-->
-<!--</div>-->
+<div class="app-layout" [class.sidebar-collapsed]="!sidebarOpen">
+  <app-header (toggleSidebar)="onToggleSidebar()"></app-header>
 
-<app-header></app-header>
+  <app-sidebar [open]="sidebarOpen"></app-sidebar>
 
-<div class="main-layout">
-  <app-sidebar></app-sidebar>
-
-  <div class="page-content">
+  <main class="content">
     <router-outlet></router-outlet>
-  </div>
+  </main>
 </div>

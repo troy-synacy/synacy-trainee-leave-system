@@ -1,14 +1,18 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Output() menuToggle = new EventEmitter<void>();
-  onToggle(): void {
-    this.menuToggle.emit();
+  @Output() toggleSidebar = new EventEmitter<void>();
+
+  onToggle() {
+    this.toggleSidebar.emit();
   }
 }

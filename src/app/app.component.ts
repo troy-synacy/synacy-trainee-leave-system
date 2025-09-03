@@ -12,4 +12,10 @@ import {HeaderComponent} from './shared-components/header/header.component';
 })
 export class AppComponent {
   title = 'synacy-trainee-leave-system';
+
+  sidebarOpen = true;
+
+  onToggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
 }
