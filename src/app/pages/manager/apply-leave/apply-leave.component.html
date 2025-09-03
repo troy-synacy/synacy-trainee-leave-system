@@ -1,36 +1,35 @@
-<div class="leave-container">
-  <h2 class="header">Apply for Leave</h2>
-
-  <div class="leave-content">
-    <!-- Form Section -->
-    <div class="form-box">
+<div class="apply-leave-wrapper">
+    <h2 class="form-title">Apply for Leave</h2>
+  <div class="form-content">
+    <form [formGroup]="leaveForm" (submit)="applyLeave()" class="apply-leave-form">
       <div class="form-group">
         <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" [(ngModel)]="startDate" (change)="calculateDays()">
+        <input id="startDate" formControlName="startDate" type="date" />
       </div>
 
       <div class="form-group">
         <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" [(ngModel)]="endDate" (change)="calculateDays()">
+        <input id="endDate" formControlName="endDate" type="date" />
       </div>
 
       <div class="form-group">
-        <label>Total Days:</label>
-        <input type="number" [value]="totalDays" readonly>
+        <label for="numberOfDays">Total Days:</label>
+        <input id="numberOfDays" formControlName="numberOfDays" type="number" min="1"/>
       </div>
 
       <div class="form-group">
         <label for="reason">Reason:</label>
-        <textarea id="reason" [(ngModel)]="reason" placeholder="Description"></textarea>
+        <textarea id="reason" formControlName="reason" placeholder="Description"></textarea>
       </div>
+      <div class="form-actions">
+        <button class="apply-btn" type="submit" [disabled]="leaveForm.invalid">{{ isProcessing ? 'Applying...' : 'Apply' }}</button>
+        <button class="cancelBtn" type="button" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
 
-      <button class="apply-btn" (click)="applyLeave()">Apply</button>
-    </div>
-
-    <!-- Leave Credits Section -->
     <div class="leave-credits">
-      <span>Total Leave Credits:</span>
-      <strong>{{ leaveCredits }}</strong>
+      <p>Total Leave Credits:</p>
+      <h3>10</h3>
     </div>
   </div>
 </div>
