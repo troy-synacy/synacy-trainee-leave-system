@@ -1,0 +1,112 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  background: #2f4050;
+  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+  padding: 1rem;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .menu-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+    display: none;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 200px;
+  background: #34495e;
+  color: #fff;
+  padding: 1rem;
+  transition: transform 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 56px; // height of header
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    z-index: 1000;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}
+
+.section {
+  margin-bottom: 20px;
+  margin-top: 50px;
+  font-family: 'Open Sans', sans-serif;
+
+  label {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-right: 15px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.viewBtn,
+.addBtn {
+  width: 200px;
+  background-color: #FFFFF0;
+  color: black;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.dropdown-container {
+  margin-top: 15px;
+  font-family: 'Open Sans', sans-serif;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+
+  .userSelect {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #FFFFF0;
+    color: black;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border-color: #666;
+    }
+  }
+}
+
+#employeeSelect {
+  background-color: #fffef5; // slightly different shade
+  font-family: 'Open Sans', sans-serif;
+}
