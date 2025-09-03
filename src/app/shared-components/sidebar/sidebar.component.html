@@ -1,0 +1,8 @@
+<aside class="sidebar" [class.closed]="!open">
+  <nav class="nav">
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">🏠 Home</a>
+    <a routerLink="/about" routerLinkActive="active">ℹ️ About</a>
+    <a routerLink="/contact" routerLinkActive="active">✉️ Contact</a>
+    <add-button [buttonLabel]="'View'" [route]="'/view-employee'"></add-button>
+  </nav>
+</aside>

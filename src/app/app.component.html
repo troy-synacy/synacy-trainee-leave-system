@@ -1,1 +1,10 @@
-<router-outlet />
+
+<div class="app-layout" [class.sidebar-collapsed]="!sidebarOpen">
+  <app-header (toggleSidebar)="onToggleSidebar()"></app-header>
+
+  <app-sidebar [open]="sidebarOpen"></app-sidebar>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

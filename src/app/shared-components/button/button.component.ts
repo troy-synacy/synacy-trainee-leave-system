@@ -1,14 +1,15 @@
 import {Component, Input} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 
 
 @Component ({
     selector: 'add-button',
     templateUrl: './button.component.html',
     styleUrl: './button.component.scss',
-    imports: [
-      RouterLink
-    ],
+  imports: [
+    RouterLink,
+    RouterOutlet
+  ],
     standalone: true
   }
 )
@@ -16,4 +17,7 @@ import {RouterLink} from '@angular/router';
 export class ButtonComponent{
   @Input() buttonLabel = '';
   @Input() route = '';
+}
+
+export class AddButtonComponent {
 }
