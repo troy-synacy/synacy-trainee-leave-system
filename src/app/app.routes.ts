@@ -1,22 +1,25 @@
 import { Routes } from '@angular/router';
 import {EmployeeListComponent} from './pages/admin/view-employee/employee-list.component';
-import {ViewEmployeeComponent} from './pages/admin/view-employee/view-employee.component';
-import {TestViewComponent} from './pages/admin/test-view/test-view.component';
-import {AppComponent} from './app.component';
 import {ApplyLeaveComponent} from './pages/manager/apply-leave/apply-leave.component';
+import {AddEmployeeComponent} from './pages/admin/add-employee/add-employee.component';
 
-export const routes: Routes = [{
-  path: 'test', component: TestViewComponent,
-
-},
+export const routes: Routes = [
   {
-    path: 'view-employee', component: EmployeeListComponent,
+    path: 'admin',
+    children: [
+      {
+        path: 'view-employees', component: EmployeeListComponent
+      },
+      {
+        path: 'add-employee', component: AddEmployeeComponent
+      }
+    ]
   },
   {
     path: 'manager', component: ApplyLeaveComponent,
   },
   {
-    path: '**', redirectTo: 'test'
+    path: '**', redirectTo: 'view-employees'
   }
 ];
 
