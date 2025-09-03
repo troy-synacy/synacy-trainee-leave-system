@@ -1,1 +1,36 @@
-<p>apply-leave works!</p>
+<div class="leave-container">
+  <h2 class="header">Apply for Leave</h2>
+
+  <div class="leave-content">
+    <!-- Form Section -->
+    <div class="form-box">
+      <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" [(ngModel)]="startDate" (change)="calculateDays()">
+      </div>
+
+      <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" [(ngModel)]="endDate" (change)="calculateDays()">
+      </div>
+
+      <div class="form-group">
+        <label>Total Days:</label>
+        <input type="number" [value]="totalDays" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="reason">Reason:</label>
+        <textarea id="reason" [(ngModel)]="reason" placeholder="Description"></textarea>
+      </div>
+
+      <button class="apply-btn" (click)="applyLeave()">Apply</button>
+    </div>
+
+    <!-- Leave Credits Section -->
+    <div class="leave-credits">
+      <span>Total Leave Credits:</span>
+      <strong>{{ leaveCredits }}</strong>
+    </div>
+  </div>
+</div>
