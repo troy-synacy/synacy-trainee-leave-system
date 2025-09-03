@@ -13,7 +13,6 @@
         <div class="dropdown-container">
           <label for="roleSelect">Role</label>
           <select id="roleSelect" class="userSelect" [(ngModel)]="selectedRole">
-            <option value="" disabled>-- Choose a role --</option>
             <option value="admin">Admin</option>
             <option value="manager">Manager</option>
             <option value="employee">Employee</option>
@@ -28,7 +27,7 @@
 
         <div class="section">
           <label>Leaves</label>
-          <add-button [buttonLabel]="'View All'" [route]="'/leaves'"></add-button>
+          <add-button [buttonLabel]="'View All'" [route]="'/employee/all-leaves'"></add-button>
         </div>
       </div>
     </aside>

@@ -12,7 +12,7 @@ import {FormsModule} from '@angular/forms';
 })
 export class ViewEmployeeComponent {
   sidebarOpen = false;
-  selectedRole = '';
+  selectedRole: string = 'admin'; // default view
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;

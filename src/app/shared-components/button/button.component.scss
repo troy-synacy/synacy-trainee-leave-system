@@ -5,13 +5,34 @@
 }
 
 .add-btn {
-  width: 200px;
-  background: #FFFFF0;
-  color: black;
+  display: inline-block;
+  width: 100%;
+  max-width: 200px;
   padding: 10px 20px;
+  font-weight: 600;
+  font-size: 0.95rem;
   text-align: left;
-}
+  color: #fff;
+  background: #2c3e50;          // dark blue-gray to match sidebar
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 
-.add-btn:hover {
-  background: #A6B28B;
+  &:hover {
+    background: #34495e;        // slightly lighter on hover
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 73, 94, 0.3); // subtle focus ring
+  }
 }
