@@ -3,16 +3,16 @@
 <div class="addEmployee">
   <h2>Add New Employee</h2>
 
-  <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
+  <form [formGroup]="userForm" (submit)="saveUser()">
 
     <div class="formGroup">
       <label for="name">Name</label>
-      <input id="name" name="name" ngModel required />
+      <input id="name" type="text" class="formGroup" formControlName="name" />
     </div>
 
     <div class="formGroup">
       <label for="role">Role</label>
-      <select id="role" name="role" ngModel required>
+      <select id="role" name="role" type="text" class="formGroup" formControlName="role">
         <option value="" disabled selected>Select a role</option>
         <option value="HR">HR</option>
         <option value="MANAGER">Manager</option>
@@ -21,15 +21,21 @@
     </div>
 
     <div class="formGroup">
-      <label for="totalLeave">Total Leave</label>
-      <input id="totalLeave" type="number" name="totalLeave" ngModel />
+      <label for="leaveCredits">Total Leave</label>
+      <input id="leaveCredits" type="number" class="formGroup" formControlName="leaveCredits" />
     </div>
 
     <div class="formGroup">
       <label for="manager">Manager</label>
-      <select id="manager" name="manager" ngModel>
-        <option value="" disabled selected>Select a manager</option>
-        <option *ngFor="let mgr of managers" [value]="mgr.id">{{ mgr.name }}</option>
+      <select id="manager" class="formGroup" formControlName="managerId">
+        <option [value]="null">— Select a manager —</option>
+        @for (mgr of managers; track mgr.id) {
+          <option [value]="mgr.id">
+            {{ mgr.name }}
+          </option>
+        } @empty {
+          <option disabled>— No managers found —</option>
+        }
       </select>
     </div>
 
