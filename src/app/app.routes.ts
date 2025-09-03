@@ -16,7 +16,12 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'manager', component: ApplyLeaveComponent,
+    path: 'manager',
+    children: [
+      {
+        path: 'apply-leave', component: ApplyLeaveComponent
+      }
+    ]
   },
   {
     path: '**', redirectTo: 'view-employees'

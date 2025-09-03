@@ -1,73 +1,58 @@
 import { Component } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {LeaveRequest} from '../model/leave-application.interface';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ManagerService} from '../service/manager.service';
 
 @Component({
   selector: 'app-apply-leave',
   standalone: true,
   imports: [
-    FormsModule
-  ],
-  providers: [
-    ManagerService
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './apply-leave.component.html',
   styleUrl: './apply-leave.component.scss'
 })
-export class ApplyLeaveComponent {
-  id: number = 123;
-  startDate: string = '';
-  endDate: string = '';
-  totalDays: number = 0;
-  reason: string = '';
-  leaveCredits: number = 10;
 
-  constructor(private managerService: ManagerService) {}
+export class ApplyLeaveComponent{
 
-  calculateDays() {
-    if (this.startDate && this.endDate) {
-      const start = new Date(this.startDate);
-      const end = new Date(this.endDate);
+  leaveForm: FormGroup;
+  isProcessing = false;
 
-      if (end < start) {
-        this.totalDays = 0;
-        return;
-      }
+  constructor(private readonly managerService: ManagerService) {
+    this.leaveForm = new FormGroup({
+      userId: new FormControl(2),
+      startDate: new FormControl(''),
+      endDate: new FormControl(''),
+      numberOfDays: new FormControl(''),
+      reason: new FormControl('')
+    })
+  }
 
-      let count = 0;
-      let current = new Date(start);
+  applyLeave(){
+    if(this.leaveForm.valid){
+      this.isProcessing = true;
+      console.log("Leave applied:", this.leaveForm.value);
 
-      while (current <= end) {
-        const day = current.getDay();
-        if (day !== 0 && day !== 6) {
-          count++;
+      const requestBody = this.leaveForm.getRawValue();
+
+      this.managerService.applyLeave(requestBody).subscribe({
+        next: res => {
+          alert('Leave applied successfully!');
+          this.leaveForm.reset();
+        },
+        error: err => {
+          this.isProcessing = false;
+          alert('There was an error applying for leave.');
+        },
+        complete: () => {
+          this.isProcessing = false;
         }
-        current.setDate(current.getDate() + 1);
-      }
-
-      this.totalDays = count;
+      })
     }
   }
 
-  applyLeave() {
-    const leaveRequest: LeaveRequest = {
-      id: this.id,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      numberOfDays: this.totalDays,
-      reason: this.reason
-    };
-
-    this.managerService.createLeave(leaveRequest).subscribe({
-      next: (res) => {
-        alert('Leave application submitted successfully!');
-        console.log(res);
-      },
-      error: (err) => {
-        alert('Error submitting leave application.');
-        console.error(err);
-      }
-    });
+  cancel(){
+    this.leaveForm.reset();
   }
+
 }

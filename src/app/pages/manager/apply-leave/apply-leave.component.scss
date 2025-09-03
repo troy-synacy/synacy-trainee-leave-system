@@ -1,88 +1,103 @@
-.leave-container {
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.apply-leave-wrapper {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.form-title {
+  background: #d9d9d9;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form-content {
+  display: flex;
+  align-items: flex-start;
+  background: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.apply-leave-form {
+  flex: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 30px;
-}
-
-.header {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.leave-content {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.form-box {
-  background: #f2f2f2;
-  padding: 25px;
-  border-radius: 12px;
-  width: 360px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 15px;
 }
 
 .form-group {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
+  align-items: center;
+  gap: 10px;
 }
 
 .form-group label {
-  font-size: 14px;
-  margin-bottom: 5px;
+  width: 120px;
   font-weight: 500;
 }
 
 .form-group input,
 .form-group textarea {
-  padding: 8px 10px;
+  flex: 1;
+  padding: 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 14px;
 }
 
 textarea {
-  resize: none;
   height: 80px;
+  resize: none;
 }
 
 .apply-btn {
-  background: #28a745;
+  background-color: #1c352d;
   color: #fff;
+  padding: 10px 18px;
   border: none;
-  padding: 10px 20px;
   border-radius: 6px;
-  font-size: 16px;
   cursor: pointer;
-  width: 100%;
-  margin-top: 10px;
-  transition: background 0.3s;
+  transition: background-color 0.2s;
 }
 
 .apply-btn:hover {
-  background: #218838;
+  background: #2f5442;
+}
+
+.cancelBtn {
+  background-color: #ccc;
+  color: #333;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #b5b5b5;
+  }
 }
 
 .leave-credits {
-  background: #f2f2f2;
-  padding: 20px 30px;
-  border-radius: 12px;
+  flex: 1;
+  background: #d9d9d9;
+  margin-left: 20px;
+  padding: 20px;
+  border-radius: 10px;
   text-align: center;
-  min-width: 180px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.leave-credits span {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 5px;
+.leave-credits p {
+  margin: 0;
+  font-weight: 500;
 }
 
-.leave-credits strong {
-  font-size: 22px;
+.leave-credits h3 {
+  font-size: 28px;
+  margin-top: 10px;
 }
