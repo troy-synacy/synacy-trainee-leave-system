@@ -18,15 +18,17 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let emp of employees">
-    <td>{{ emp.id }}</td>
-    <td>{{ emp.name }}</td>
-    <td>{{ emp.manager }}</td>
-    <td>{{ emp.totalLeave }}</td>
-    <td>{{ emp.current }}</td>
-    <td>
-      <button class="editBtn" (click)="editEmployee(emp)">Edit</button>
-    </td>
-  </tr>
+    @for (user of users; track user.id){
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.manager }}</td>
+        <td>{{ user.totalLeaveCredits }}</td>
+        <td>{{ user.remainingLeaveCredits }}</td>
+        <td>
+          <button [routerLink]="'/admin/edit-employee/' + user.id">Edit</button>
+        </td>
+      </tr>
+    }
   </tbody>
 </table>

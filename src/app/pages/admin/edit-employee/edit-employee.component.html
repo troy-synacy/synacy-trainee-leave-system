@@ -1,0 +1,47 @@
+<div class="headLabel">Edit Employee</div>
+
+<div class="addEmployee">
+  <h2>Edit Employee</h2>
+
+  <form [formGroup]="userForm" (submit)="saveUser()">
+
+    <div class="formGroup">
+      <label for="name">Name</label>
+      <input id="name" type="text" class="formGroup" formControlName="name" />
+    </div>
+
+    <div class="formGroup">
+      <label for="role">Role</label>
+      <select id="role" name="role" type="text" class="formGroup" formControlName="role">
+        <option value="" disabled selected>Select a role</option>
+        <option value="HR">HR</option>
+        <option value="MANAGER">Manager</option>
+        <option value="EMPLOYEE">Employee</option>
+      </select>
+    </div>
+
+    <div class="formGroup">
+      <label for="leaveCredits">Total Leave</label>
+      <input id="leaveCredits" type="number" class="formGroup" formControlName="leaveCredits" />
+    </div>
+
+    <div class="formGroup">
+      <label for="manager">Manager</label>
+      <select id="manager" class="formGroup" formControlName="managerId">
+        @for (mgr of managers; track mgr.id) {
+          <option [ngValue]="mgr.id">
+            {{ mgr.name }}
+          </option>
+        } @empty {
+          <option disabled>— No managers found —</option>
+        }
+      </select>
+    </div>
+
+    <div class="formActions">
+      <button type="submit" class="saveBtn">Save</button>
+      <button type="button" class="cancelBtn" routerLink="/employee">Cancel</button>
+    </div>
+
+  </form>
+</div>
