@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
-import {NgForOf} from '@angular/common';
 import {AdminService} from '../service/admin.service';
 import {Manager} from '../models/manager.interface';
 
@@ -11,7 +10,6 @@ import {Manager} from '../models/manager.interface';
   imports: [
     FormsModule,
     RouterLink,
-    NgForOf,
     ReactiveFormsModule
   ],
   templateUrl: './add-employee.component.html',
@@ -41,8 +39,8 @@ export class AddEmployeeComponent implements OnInit{
         this.managers = response
       },
       error: () => {
-        this.managers = [],
-          console.log("error fetching managers");
+        this.managers = [];
+        console.log("error fetching managers");
       }
     })
   }

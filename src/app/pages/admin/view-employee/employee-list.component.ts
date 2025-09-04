@@ -1,24 +1,43 @@
-import { Component } from '@angular/core';
-import {NgForOf} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
 import {ButtonComponent} from '../../../shared-components/button/button.component';
+import {User} from '../models/user.interface';
+import {AdminService} from '../service/admin.service';
+import {PaginatedUsers} from '../models/paginated-users.interface';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
   imports: [
-    NgForOf,
-    ButtonComponent
+    ButtonComponent,
+    RouterLink
   ],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.scss'
 })
-export class EmployeeListComponent {
-  employees = [
-    { id: 1, name: 'John Doe', manager: 'Jane Smith', totalLeave: 20, current: 5 },
-    { id: 2, name: 'Ana Cruz', manager: 'Mark Lee', totalLeave: 15, current: 3 },
-    { id: 3, name: 'Carlos Santos', manager: 'Jane Smith', totalLeave: 18, current: 4 },
-    { id: 4, name: 'Maria Garcia', manager: 'Paul Tan', totalLeave: 22, current: 6 }
-  ];
+export class EmployeeListComponent implements OnInit{
+  users: User[] | undefined;
+  pageNumber: number | undefined;
+  totalUserCount: number | undefined;
+
+  constructor(private readonly adminService: AdminService) {}
+
+  ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers(){
+    this.adminService.getAllUsers().subscribe({
+      next: (response: PaginatedUsers) => {
+        this.pageNumber = response.pageNumber;
+        this.totalUserCount = response.totalCount
+        this.users = response.content;
+      },
+      error: () => {
+        console.log("Error fetching users!");
+      }
+    })
+  }
 
   editEmployee(employee: any) {
     console.log('Editing employee:', employee);
