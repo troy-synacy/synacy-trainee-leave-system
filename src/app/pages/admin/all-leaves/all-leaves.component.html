@@ -9,24 +9,27 @@
 <table class="employeeTable">
   <thead>
   <tr>
-    <th>ID</th>
-    <th>Name</th>
+    <th>Applied By</th>
     <th>Manager</th>
-    <th>Total Leave</th>
-    <th>Current</th>
-    <th>Action</th>
+    <th>Applied Date</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Total days</th>
+    <th>Status</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let emp of employees">
-    <td>{{ emp.id }}</td>
-    <td>{{ emp.name }}</td>
-    <td>{{ emp.manager }}</td>
-    <td>{{ emp.totalLeave }}</td>
-    <td>{{ emp.current }}</td>
-    <td>
-      <button class="editBtn" (click)="editEmployee(emp)">Edit</button>
-    </td>
+  <tr *ngFor="let leave of leaves">
+    <td>{{ leave.name}}</td>
+    <td>{{ leave.manager }}</td>
+    <td>{{ leave.appliedDate }}</td>
+    <td>{{ leave.startDate }}</td>
+    <td>{{ leave.endDate }}</td>
+    <td>{{ leave.numberOfDays }}</td>
+    <td>{{ leave.status }}</td>
+  </tr>
+  <tr *ngIf="leaves?.length === 0">
+    <td colspan="6" style="text-align:center; padding: 1rem;">No leave applications found.</td>
   </tr>
   </tbody>
 </table>

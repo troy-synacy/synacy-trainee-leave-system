@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
 import { AllLeavesComponent } from './all-leaves.component';
+import { AllLeavesService } from './all-leaves.service';
+
 
 describe('AllLeavesComponent', () => {
   let component: AllLeavesComponent;
@@ -8,7 +11,10 @@ describe('AllLeavesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AllLeavesComponent]
+      imports: [AllLeavesComponent],
+      providers: [
+        { provide: AllLeavesService}
+      ]
     })
     .compileComponents();
 

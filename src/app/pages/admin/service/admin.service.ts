@@ -33,5 +33,6 @@ export class AdminService {
   updateUser(userId: string | null, userRequest: UserRequestDTO) {
     return this.http.put<User>(`${this.URL}/${userId}`, userRequest);
   }
+
 }
 

@@ -20,7 +20,7 @@ export class ApplyLeaveComponent implements OnInit{
 
   constructor(private readonly managerService: ManagerService) {
     this.leaveForm = new FormGroup({
-      userId: new FormControl(2),
+      userId: new FormControl(3),
       startDate: new FormControl(''),
       endDate: new FormControl(''),
       numberOfDays: new FormControl(''),
