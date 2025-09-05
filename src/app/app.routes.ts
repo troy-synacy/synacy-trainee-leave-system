@@ -36,7 +36,10 @@ export const routes: Routes = [
         path: 'apply-leave', component: ApplyLeaveComponent
       },
       {
-        path: 'view-leaves', component: ViewLeavesComponent
+        path: 'my-leave', component: ViewLeavesComponent
+      },
+      {
+        path: 'leave', component: AllLeavesComponent
       }
     ]
   },
