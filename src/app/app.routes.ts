@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import {EmployeeListComponent} from './pages/admin/view-employee/employee-list.component';
-import {ApplyLeaveComponent} from './pages/manager/apply-leave/apply-leave.component';
+import {ApplyLeaveComponent} from './shared-components/apply-leave/apply-leave.component';
 import {AddEmployeeComponent} from './pages/admin/add-employee/add-employee.component';
 import {EditEmployeeComponent} from './pages/admin/edit-employee/edit-employee.component';
 
