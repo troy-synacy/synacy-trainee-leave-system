@@ -1,0 +1,32 @@
+<div class="leaves-wrapper">
+  <h2>Leave Applications</h2>
+
+  <table class="leavesApplicationTable">
+    <thead>
+    <tr>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Days</th>
+      <th>Reason</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let leave of leaves">
+      <td>{{ leave.startDate | date }}</td>
+      <td>{{ leave.endDate | date }}</td>
+      <td>{{ leave.numberOfDays }}</td>
+      <td>{{ leave.reason }}</td>
+      <td>{{ leave.status }}</td>
+      <td>
+        <button class="cancelBtn"
+                (click)="cancelLeave(leave.id)"
+                [disabled]="leave.status !== 'PENDING'">
+          Cancel
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

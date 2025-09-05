@@ -1,7 +1,7 @@
 <div class="apply-leave-wrapper">
     <h2 class="form-title">Apply for Leave</h2>
   <div class="form-content">
-    <form [formGroup]="leaveForm" (submit)="applyLeave()" class="apply-leave-form">
+    <form [formGroup]="leaveForm" (ngSubmit)="applyLeave()" class="apply-leave-form">
       <div class="form-group">
         <label for="startDate">Start Date:</label>
         <input id="startDate" formControlName="startDate" type="date" />
@@ -14,13 +14,14 @@
 
       <div class="form-group">
         <label for="numberOfDays">Total Days:</label>
-        <input id="numberOfDays" formControlName="numberOfDays" type="number" min="1"/>
+        <input id="numberOfDays" formControlName="numberOfDays" type="number" readonly />
       </div>
 
       <div class="form-group">
         <label for="reason">Reason:</label>
         <textarea id="reason" formControlName="reason" placeholder="Description"></textarea>
       </div>
+
       <div class="form-actions">
         <button class="apply-btn" type="submit" [disabled]="leaveForm.invalid">{{ isProcessing ? 'Applying...' : 'Apply' }}</button>
         <button class="cancelBtn" type="button" (click)="cancel()">Cancel</button>
