@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {ButtonComponent} from '../../../shared-components/button/button.component';
 import {AllLeavesService} from './all-leaves.service';
 import {LeaveApplication, LeaveRequest} from '../../manager/model/leave-application.interface';
@@ -9,7 +9,8 @@ import {LeaveApplication, LeaveRequest} from '../../manager/model/leave-applicat
   standalone: true,
   imports: [
     NgForOf,
-    ButtonComponent
+    ButtonComponent,
+    NgIf
   ],
   templateUrl: './all-leaves.component.html',
   styleUrl: './all-leaves.component.scss'
