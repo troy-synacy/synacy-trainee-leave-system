@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ManagerService} from '../service/manager.service';
+import {ManagerService} from '../../pages/manager/service/manager.service';
 
 @Component({
   selector: 'app-apply-leave',
