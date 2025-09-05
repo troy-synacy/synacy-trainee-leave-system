@@ -3,6 +3,7 @@ import {EmployeeListComponent} from './pages/admin/view-employee/employee-list.c
 import {ApplyLeaveComponent} from './pages/manager/apply-leave/apply-leave.component';
 import {AddEmployeeComponent} from './pages/admin/add-employee/add-employee.component';
 import {EditEmployeeComponent} from './pages/admin/edit-employee/edit-employee.component';
+import {AllLeavesComponent} from './pages/admin/all-leaves/all-leaves.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,9 @@ export const routes: Routes = [
       },
       {
         path: 'edit-employee/:id', component: EditEmployeeComponent
+      },
+      {
+        path: 'view-leaves', component: AllLeavesComponent
       }
     ]
   },

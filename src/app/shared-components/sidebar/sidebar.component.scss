@@ -1,33 +1,37 @@
+
 .sidebar {
-  height: calc(100dvh - var(--header-height));
   overflow: auto;
-  padding: 0.75rem 0.75rem 1rem;
+  transition: all 180ms ease-in-out;
+  width: 100%;      /* ✅ fill whatever grid gives */
+  min-width: 0;     /* ✅ prevent leftover space */
+
+  .sidebar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;   // more space between Role, Employee, Leaves
+    padding: 1rem; // consistent padding from edges
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .section-label {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      padding-left: 0.25rem; // keep label from touching the edge
+      color: #ecf0f1;        // softer white for labels
+    }
+  }
 
   .nav {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-
-    a {
-      display: block;
-      padding: 0.6rem 0.75rem;
-      border-radius: 8px;
-      text-decoration: none;
-      color: inherit;
-
-      &:hover {
-        background: #f3f4f6;
-      }
-
-      &.active {
-        background: #eef2ff;
-        border: 1px solid #e5e7eb;
-      }
-    }
+    gap: 0.5rem; // space between each button
   }
 }
 
-/* Optional desktop collapse styling (grid handles width) */
-.closed {
-  /* on desktop grid, width goes to 0 via app layout */
-}
+
