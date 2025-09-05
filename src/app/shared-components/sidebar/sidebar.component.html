@@ -1,7 +1,20 @@
-<aside class="sidebar" [class.closed]="!open">
-  <nav class="nav">
-    <add-button [buttonLabel]="'View All Employees'" [route]="'/admin/view-employees'"></add-button>
-    <add-button [buttonLabel]="'Add Employee'" [route]="'/admin/add-employee'"></add-button>
-    <add-button [buttonLabel]="'View All Leaves'" [route]="'/admin/view-leaves'"></add-button>
-  </nav>
+<aside class="sidebar">
+  <div class="sidebar-content">
+    <div class="section">
+      <label class="section-label">Employee</label>
+      <nav class="nav">
+        <add-button [buttonLabel]="'View All'" [route]="'/admin/view-employees'"></add-button>
+        <add-button [buttonLabel]="'Add Employee'" [route]="'/admin/add-employee'"></add-button>
+      </nav>
+    </div>
+
+    <!-- Leaves Section -->
+    <div class="section">
+      <label class="section-label">Leaves</label>
+      <nav class="nav">
+        <add-button [buttonLabel]="'View All'" [route]="'/admin/view-leaves'"></add-button>
+      </nav>
+    </div>
+  </div>
 </aside>
+
