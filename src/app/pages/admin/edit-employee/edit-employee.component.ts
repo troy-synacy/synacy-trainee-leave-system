@@ -4,6 +4,7 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {AdminService} from '../service/admin.service';
 import {Manager} from '../models/manager.interface';
 import {UserRequestDTO} from '../models/user-request-DTO.interface';
+import {UserSignalService} from '../../../shared-components/service/user-signal.service';
 
 @Component({
   selector: 'app-edit-employee',
@@ -25,7 +26,8 @@ export class EditEmployeeComponent implements OnInit{
 
   constructor(private readonly router: Router,
               private readonly route: ActivatedRoute,
-              private readonly adminService: AdminService) {
+              private readonly adminService: AdminService,
+              private readonly userSignalService: UserSignalService) {
     this.userId = this.route.snapshot.paramMap.get('id');
 
     this.userForm = new FormGroup({
@@ -77,6 +79,7 @@ export class EditEmployeeComponent implements OnInit{
     this.adminService.updateUser(this.userId, requestBody).subscribe({
       next: () => {
         this.router.navigate(['admin/view-employees']);
+        this.userSignalService.triggerRefreshUsers();
       },
       error: () => {
         console.log("Error fetching data!");

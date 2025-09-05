@@ -19,7 +19,7 @@ export class AdminService {
   }
 
   getAllUsers () {
-    return this.http.get<PaginatedUsers>(`${this.URL}s`);
+    return this.http.get<PaginatedUsers>(`${this.URL}s/paginated`);
   }
 
   saveUser (userRequest: UserRequestDTO) {

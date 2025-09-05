@@ -3,6 +3,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular
 import {Router, RouterLink} from '@angular/router';
 import {AdminService} from '../service/admin.service';
 import {Manager} from '../models/manager.interface';
+import {UserSignalService} from '../../../shared-components/service/user-signal.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -20,7 +21,9 @@ export class AddEmployeeComponent implements OnInit{
   userForm: FormGroup;
   managers: Manager[] = [];
 
-  constructor(private readonly router: Router, private readonly adminService: AdminService) {
+  constructor(private readonly router: Router,
+              private readonly adminService: AdminService,
+              private readonly userSignalService: UserSignalService) {
     this.userForm = new FormGroup({
       name: new FormControl(),
       role: new FormControl(),
@@ -51,14 +54,12 @@ export class AddEmployeeComponent implements OnInit{
     this.adminService.saveUser(requestBody).subscribe({
       next: () => {
         this.router.navigate(['view-employees']);
+        this.userSignalService.triggerRefreshUsers();
+
       },
       error: () => {
         console.log("Error saving product!");
       }
     })
-  }
-
-  onSubmit() {
-    console.log('Employee saved (will be sent to backend later)');
   }
 }
