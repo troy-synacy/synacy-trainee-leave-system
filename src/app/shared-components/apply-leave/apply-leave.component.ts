@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ManagerService} from '../../pages/manager/service/manager.service';
 
@@ -13,7 +13,7 @@ import {ManagerService} from '../../pages/manager/service/manager.service';
   styleUrl: './apply-leave.component.scss'
 })
 
-export class ApplyLeaveComponent{
+export class ApplyLeaveComponent implements OnInit{
 
   leaveForm: FormGroup;
   isProcessing = false;
@@ -28,28 +28,54 @@ export class ApplyLeaveComponent{
     })
   }
 
-  applyLeave(){
-    if(this.leaveForm.valid){
-      this.isProcessing = true;
-      console.log("Leave applied:", this.leaveForm.value);
-
-      const requestBody = this.leaveForm.getRawValue();
-
-      this.managerService.applyLeave(requestBody).subscribe({
-        next: res => {
-          alert('Leave applied successfully!');
-          this.leaveForm.reset();
-        },
-        error: err => {
-          this.isProcessing = false;
-          alert('There was an error applying for leave.');
-        },
-        complete: () => {
-          this.isProcessing = false;
-        }
-      })
-    }
+  ngOnInit() {
+    this.leaveForm.get('startDate')?.valueChanges.subscribe(() => this.calculateDays());
+    this.leaveForm.get('endDate')?.valueChanges.subscribe(() => this.calculateDays());
   }
+
+  private calculateDays() {
+    const start = new Date(this.leaveForm.get('startDate')?.value);
+    const end = new Date(this.leaveForm.get('endDate')?.value);
+
+    if (!start || !end || isNaN(start.getTime()) || isNaN(end.getTime())) {
+      return;
+    }
+
+    let count = 0;
+    const current = new Date(start);
+
+    while (current <= end) {
+      const day = current.getDay();
+      if (day !== 0 && day !== 6) { // exclude Sunday(0) and Saturday(6)
+        count++;
+      }
+      current.setDate(current.getDate() + 1);
+    }
+
+    this.leaveForm.patchValue({ numberOfDays: count }, { emitEvent: false });
+  }
+
+
+  applyLeave() {
+    if (this.leaveForm.invalid) return;
+
+    this.isProcessing = true;
+    const requestBody = this.leaveForm.getRawValue();
+
+    this.managerService.applyLeave(requestBody).subscribe({
+      next: () => {
+        alert('Leave applied successfully!');
+        this.leaveForm.reset({ userId: 2 }); // keep userId after reset
+      },
+      error: () => {
+        alert('There was an error applying for leave.');
+      },
+      complete: () => {
+        this.isProcessing = false;
+      }
+    });
+  }
+
 
   cancel(){
     this.leaveForm.reset();

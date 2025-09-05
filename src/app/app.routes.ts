@@ -4,6 +4,7 @@ import {ApplyLeaveComponent} from './shared-components/apply-leave/apply-leave.c
 import {AddEmployeeComponent} from './pages/admin/add-employee/add-employee.component';
 import {EditEmployeeComponent} from './pages/admin/edit-employee/edit-employee.component';
 import {AllLeavesComponent} from './pages/admin/all-leaves/all-leaves.component';
+import {ViewLeavesComponent} from './shared-components/view-leaves/view-leaves.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,21 @@ export const routes: Routes = [
   {
     path: 'manager',
     children: [
+      {
+        path: 'apply-leave', component: ApplyLeaveComponent
+      },
+      {
+        path: 'view-leaves', component: ViewLeavesComponent
+      }
+    ]
+  },
+  {
+    path: 'employee',
+    // component: ViewLeavesComponent,
+    children: [
+      {
+        path: 'view-leaves', component: ViewLeavesComponent
+      },
       {
         path: 'apply-leave', component: ApplyLeaveComponent
       }

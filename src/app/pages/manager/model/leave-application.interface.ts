@@ -1,8 +1,9 @@
 
 export interface LeaveRequest {
   id: number;
-  startDate: String;
-  endDate: String;
+  startDate: string;
+  endDate: string;
   numberOfDays: number;
   reason: String;
+  status: 'APPROVED' | 'PENDING' | 'REJECTED' | 'CANCELLED';
 }
