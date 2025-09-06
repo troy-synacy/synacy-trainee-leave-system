@@ -6,6 +6,7 @@ import {EditEmployeeComponent} from './pages/admin/edit-employee/edit-employee.c
 import {ViewAllLeavesComponent} from './pages/admin/view-all-leaves/view-all-leaves.component';
 import {ViewLeavesComponent} from './shared-components/view-leaves/view-leaves.component';
 import {ViewManagerLeavesComponent} from './pages/manager/view-manager-leaves/view-manager-leaves.component';
+import {ViewManagerOwnLeavesComponent} from './pages/manager/view-manager-own-leaves/view-manager-own-leaves';
 
 export const routes: Routes = [
   {
@@ -37,7 +38,7 @@ export const routes: Routes = [
         path: 'apply-leave', component: ApplyLeaveComponent
       },
       {
-        path: 'my-leave', component: ViewLeavesComponent
+        path: 'my-leave', component: ViewManagerOwnLeavesComponent
       },
       {
         path: 'leave', component: ViewManagerLeavesComponent
