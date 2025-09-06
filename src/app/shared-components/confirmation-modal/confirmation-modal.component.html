@@ -1,1 +1,8 @@
-<p>confirmation-modal works!</p>
+<h2 mat-dialog-title>{{ data.title || 'Confirm' }}</h2>
+<mat-dialog-content>{{ data.message || 'Are you sure?' }}</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close(false)">{{ data.cancelText || 'Cancel' }}</button>
+  <button mat-raised-button color="primary" (click)="dialogRef.close(true)">
+    {{ data.confirmText || 'OK' }}
+  </button>
+</mat-dialog-actions>
