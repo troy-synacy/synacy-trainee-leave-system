@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LeaveApplicationService} from '../../services/leave-application.service';
 import {UserContext} from '../service/user-context.service';
 import {LeaveApplication} from '../../pages/manager/model/leave-application.interface';
-import {ViewLeaveService} from '../view-leaves/view-leave.service';
 import {NgForOf} from '@angular/common';
+import {ViewLeaveService} from '../service/view-leave.service';
 
 @Component({
   selector: 'app-user-leaves-table',

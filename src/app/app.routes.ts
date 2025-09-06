@@ -1,12 +1,11 @@
 import { Routes } from '@angular/router';
 import {EmployeeListComponent} from './pages/admin/view-employee/employee-list.component';
-import {ApplyLeaveComponent} from './shared-components/apply-leave/apply-leave.component';
 import {AddEmployeeComponent} from './pages/admin/add-employee/add-employee.component';
 import {EditEmployeeComponent} from './pages/admin/edit-employee/edit-employee.component';
 import {ViewAllLeavesComponent} from './pages/admin/view-all-leaves/view-all-leaves.component';
-import {ViewLeavesComponent} from './shared-components/view-leaves/view-leaves.component';
 import {ViewManagerLeavesComponent} from './pages/manager/view-manager-leaves/view-manager-leaves.component';
 import {ViewManagerOwnLeavesComponent} from './pages/manager/view-manager-own-leaves/view-manager-own-leaves';
+import {ApplyManagerLeave} from './pages/manager/apply-manager-leave/apply-manager-leave';
 
 export const routes: Routes = [
   {
@@ -35,7 +34,7 @@ export const routes: Routes = [
     path: 'manager',
     children: [
       {
-        path: 'apply-leave', component: ApplyLeaveComponent
+        path: 'apply-leave', component: ApplyManagerLeave
       },
       {
         path: 'my-leave', component: ViewManagerOwnLeavesComponent
@@ -48,12 +47,12 @@ export const routes: Routes = [
   {
     path: 'employee',
     children: [
-      {
-        path: 'view-leaves', component: ViewLeavesComponent
-      },
-      {
-        path: 'apply-leave', component: ApplyLeaveComponent
-      }
+      // {
+      //   path: 'view-leaves', component: ViewLeavesComponent
+      // },
+      // {
+      //   path: 'apply-leave', component: ApplyLeaveComponent
+      // }
     ]
   },
   {

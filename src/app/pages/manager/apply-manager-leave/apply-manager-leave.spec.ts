@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewLeavesComponent } from './view-leaves.component';
+import { ApplyManagerLeave } from './apply-manager-leave';
 
-describe('ViewLeavesComponent', () => {
-  let component: ViewLeavesComponent;
-  let fixture: ComponentFixture<ViewLeavesComponent>;
+describe('ApplyManagerLeave', () => {
+  let component: ApplyManagerLeave;
+  let fixture: ComponentFixture<ApplyManagerLeave>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewLeavesComponent]
+      imports: [ApplyManagerLeave]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewLeavesComponent);
+    fixture = TestBed.createComponent(ApplyManagerLeave);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
