@@ -1,19 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ManagerService } from '../../pages/manager/service/manager.service';
 import { NgIf } from '@angular/common';
 import { DateValidators } from '../validators/date-validator';
 import {UserContext} from '../service/user-context.service';
 import {User} from '../../pages/admin/models/user.interface';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmationData} from '../../models/confirmation-data.interface';
+import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-apply-leave',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, NgIf],
   templateUrl: './apply-leave.component.html',
   styleUrls: ['./apply-leave.component.scss']
 })
 export class ApplyLeaveComponent implements OnInit {
+  @Input() userRole?: string = '';
+
+  private dialog = inject(MatDialog);
+
+  canceled: ConfirmationData = {
+    title: 'Sure kana gyud?',
+    message: 'Pag sure bah??',
+    confirmText: 'Confirm',
+    cancelText: 'Cancel'
+  }
+
   leaveForm: FormGroup;
   isProcessing = false;
   credits = 0;
@@ -36,6 +50,8 @@ export class ApplyLeaveComponent implements OnInit {
       reason: new FormControl(''),
     }, { validators: DateValidators.dateRange() });
   }
+
+
 
   ngOnInit() {
     const user = this.userContext.getUser();
@@ -72,7 +88,7 @@ export class ApplyLeaveComponent implements OnInit {
     this.managerService.applyLeave(requestBody).subscribe({
       next: () => {
         alert('Leave applied successfully!');
-        this.leaveForm.reset({ userId: this.userContext.getUser()?.id }); // keep a consistent default if you like
+        this.leaveForm.reset({ userId: this.userContext.getUser()?.id });
       },
       error: () => {
         alert('There was an error applying for leave.');
@@ -84,6 +100,21 @@ export class ApplyLeaveComponent implements OnInit {
   }
 
   cancel() {
-    this.leaveForm.reset({ userId: this.userContext.getUser()?.id });
+    const isFormDirty = this.leaveForm.dirty;
+    if (!isFormDirty) {
+      this.leaveForm.reset({ userId: this.userContext.getUser()?.id });
+      return;
+    }
+
+    this.dialog.open(ConfirmationModalComponent, {
+      width: '360px',
+      // disableClose: true,
+      data: this.canceled
+    }).afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.leaveForm.reset({ userId: this.userContext.getUser()?.id });
+      }
+    });
   }
+
 }

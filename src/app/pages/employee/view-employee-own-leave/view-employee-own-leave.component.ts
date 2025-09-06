@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import {UserLeavesTable} from '../../../shared-components/user-leaves-table/user-leaves-table';
+import {LeaveTableComponent} from '../../../shared-components/leave-table/leave-table.component';
+import {LeaveApplication} from '../../manager/model/leave-application.interface';
+import {UserContext} from '../../../shared-components/service/user-context.service';
 
 @Component({
   selector: 'app-view-employee-own-leave',
@@ -11,5 +14,10 @@ import {UserLeavesTable} from '../../../shared-components/user-leaves-table/user
   styleUrl: './view-employee-own-leave.component.scss'
 })
 export class ViewEmployeeOwnLeaveComponent {
+  leaves: LeaveApplication[] = [];
+  userRole?: string;
 
+  constructor(private readonly userContext: UserContext) {
+    this.userRole = this.userContext.getUser()?.role;
+  }
 }
