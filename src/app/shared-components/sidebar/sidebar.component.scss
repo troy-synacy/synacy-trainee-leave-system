@@ -1,15 +1,14 @@
-
 .sidebar {
   overflow: auto;
   transition: all 180ms ease-in-out;
-  width: 100%;      /* ✅ fill whatever grid gives */
-  min-width: 0;     /* ✅ prevent leftover space */
+  width: 100%;
+  min-width: 0;
 
   .sidebar-content {
     display: flex;
     flex-direction: column;
-    gap: 3.5rem;   // more space between Role, Employee, Leaves
-    padding: 1rem; // consistent padding from edges
+    gap: 3.5rem;
+    padding: 1rem;
   }
 
   .section {
@@ -22,16 +21,46 @@
       font-weight: 600;
       font-size: 1.2rem;
       margin-bottom: 0.3rem;
-      padding-left: 0.25rem; // keep label from touching the edge
-      color: #ecf0f1;        // softer white for labels
+      padding-left: 0.25rem;
+      color: #ecf0f1;
     }
+  }
+
+  /* ✅ Current User block */
+  label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #d1d5db; /* lighter gray to match sidebar theme */
+    margin-bottom: 0.4rem;
+    padding-left: 0.25rem;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #374151; /* dark gray border */
+    border-radius: 0.5rem;
+    background-color: #1f2937; /* dark sidebar-friendly background */
+    color: #f9fafb;            /* light text */
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  select:focus {
+    border-color: #3b82f6; /* blue-500 */
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    outline: none;
+  }
+
+  option:disabled {
+    color: #9ca3af; /* gray-400 for disabled state */
   }
 
   .nav {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; // space between each button
+    gap: 0.5rem;
   }
 }
-
-
