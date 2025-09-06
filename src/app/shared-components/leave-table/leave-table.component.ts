@@ -44,16 +44,13 @@ export class LeaveTableComponent implements OnInit{
   constructor(private readonly leaveApplicationService: LeaveApplicationService,
               private readonly userContext: UserContext) {
     this.currentUserId = this.userContext.getUser()?.id;
-    console.log(this.currentUserId);
   }
 
   ngOnInit() {
-    console.log(this.currentUserId);
     this.fetchLeaves();
   }
 
   fetchLeaves() {
-    console.log(this.userRole);
     if(this.userRole == "HR") {
       this.leaveApplicationService.getAllLeaveApplications().subscribe({
         next: (response) => {
@@ -64,7 +61,7 @@ export class LeaveTableComponent implements OnInit{
         }
       });
     }
-    else {
+    else if (this.userRole == 'MANAGER'){
       this.leaveApplicationService.getAllLeaveApplicationsByManager(this.currentUserId).subscribe({
         next: (response) => {
           this.leaves = response;

@@ -39,20 +39,22 @@ export class EditEmployeeComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.loadManagersAndUser();
+    this.loadManagers()
   }
 
-  loadUserFields(){
+  loadUser(){
     this.adminService.getUserById(this.userId).subscribe({
       next: (response) => {
         this.currentManager = this.managers.find(m => m.name === response.manager);
-        console.log(this.currentManager?.id)
         this.userForm.patchValue({
           name: response.name,
           role: response.role,
           leaveCredits: response.totalLeaveCredits,
           managerId: this.currentManager ? Number(this.currentManager.id) : null
         })
+        if(response.role === 'MANAGER'){
+          this.managers = this.managers.filter(manager => manager.id != response.id);
+        }
       },
       error: () => {
         console.log("Error fetching user!");
@@ -60,11 +62,11 @@ export class EditEmployeeComponent implements OnInit{
     })
   }
 
-  loadManagersAndUser() {
+  loadManagers() {
     this.adminService.getAllManagers().subscribe({
       next: (response: Manager[]) => {
         this.managers = response
-        this.loadUserFields()
+        this.loadUser()
       },
       error: () => {
         this.managers = [];
@@ -75,7 +77,6 @@ export class EditEmployeeComponent implements OnInit{
 
   saveUser() {
     const requestBody: UserRequestDTO = this.userForm.getRawValue();
-    console.log(requestBody);
     this.adminService.updateUser(this.userId, requestBody).subscribe({
       next: () => {
         this.router.navigate(['admin/view-employees']);
