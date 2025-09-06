@@ -1,23 +1,23 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ManagerService } from '../../pages/manager/service/manager.service';
-import { NgIf } from '@angular/common';
 import { DateValidators } from '../validators/date-validator';
 import {UserContext} from '../service/user-context.service';
-import {User} from '../../pages/admin/models/user.interface';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationData} from '../../models/confirmation-data.interface';
 import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
+import {NotificationService} from '../../services/notification.service';
 
 @Component({
   selector: 'app-apply-leave',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './apply-leave.component.html',
   styleUrls: ['./apply-leave.component.scss']
 })
 export class ApplyLeaveComponent implements OnInit {
   @Input() userRole?: string = '';
+  private notificationService = inject(NotificationService);
 
   private dialog = inject(MatDialog);
 
@@ -88,6 +88,7 @@ export class ApplyLeaveComponent implements OnInit {
     this.managerService.applyLeave(requestBody).subscribe({
       next: () => {
         alert('Leave applied successfully!');
+        this.notificationService.success('Successfully Applied Leave Application');
         this.leaveForm.reset({ userId: this.userContext.getUser()?.id });
       },
       error: () => {
@@ -116,5 +117,4 @@ export class ApplyLeaveComponent implements OnInit {
       }
     });
   }
-
 }

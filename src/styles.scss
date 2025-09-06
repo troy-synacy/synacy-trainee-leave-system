@@ -2,3 +2,34 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Success Modal */
+/* GLOBAL: styles.scss */
+.mat-mdc-snack-bar-container.snack-success {
+  /* core look */
+  --mdc-snackbar-container-color: #1b5e20;   /* deep green */
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mdc-snackbar-container-shape: 4px;
+  --mdc-snackbar-container-elevation-shadow:
+    0 10px 24px rgba(0,0,0,.16), 0 2px 8px rgba(0,0,0,.10);
+
+  position: relative;
+  overflow: hidden;
+
+  /* subtle left accent */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #66bb6a, #2e7d32);
+  }
+}
+
+/* make action text readable */
+.mat-mdc-snack-bar-container.snack-success .mdc-button__label {
+  color: #fff;
+  font-weight: 600;
+}
+
+
