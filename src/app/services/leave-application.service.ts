@@ -18,4 +18,8 @@ export class LeaveApplicationService {
   getAllLeaveApplicationsByManager(id: number | undefined){
     return this.http.get<LeaveApplication[]>(`${this.URL}s/manager/${id}`);
   }
+
+  changeStatusOfLeaveApplication(id: number, status: string) {
+    return this.http.put<LeaveApplication>(`${this.URL}/${id}/status?leaveStatus=${status}`, {});
+  }
 }

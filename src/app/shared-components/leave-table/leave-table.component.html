@@ -23,8 +23,8 @@
           <td>{{ leave.numberOfDays }}</td>
           <td>{{ leave.status }}</td>
           <td>
-            <button (click)="accept()">Accept</button>
-            <button (click)="reject()">Reject</button>
+            <button mat-button color="primary" (click)="approve(leave.id)">Approve</button>
+            <button mat-button color="warn" (click)="reject(leave.id)">Reject</button>
           </td>
         </tr>
       } @else {
