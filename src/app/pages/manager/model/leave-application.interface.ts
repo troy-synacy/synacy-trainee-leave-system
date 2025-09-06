@@ -11,10 +11,10 @@ export interface LeaveRequest {
 export interface LeaveApplication{
   id: number;
   name: string;
-  dateApplied: String;
-  manager: String;
-  startDate: String;
-  endDate: String;
+  dateApplied: string;
+  manager: string;
+  startDate: string;
+  endDate: string;
   numberOfDays: number;
-  status: String;
+  status: string;
 }

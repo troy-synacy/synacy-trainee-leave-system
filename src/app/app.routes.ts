@@ -3,8 +3,9 @@ import {EmployeeListComponent} from './pages/admin/view-employee/employee-list.c
 import {ApplyLeaveComponent} from './shared-components/apply-leave/apply-leave.component';
 import {AddEmployeeComponent} from './pages/admin/add-employee/add-employee.component';
 import {EditEmployeeComponent} from './pages/admin/edit-employee/edit-employee.component';
-import {AllLeavesComponent} from './pages/admin/all-leaves/all-leaves.component';
+import {ViewAllLeavesComponent} from './pages/admin/view-all-leaves/view-all-leaves.component';
 import {ViewLeavesComponent} from './shared-components/view-leaves/view-leaves.component';
+import {ViewManagerLeavesComponent} from './pages/manager/view-manager-leaves/view-manager-leaves.component';
 
 export const routes: Routes = [
   {
@@ -25,7 +26,7 @@ export const routes: Routes = [
         path: 'edit-employee/:id', component: EditEmployeeComponent
       },
       {
-        path: 'view-leaves', component: AllLeavesComponent
+        path: 'view-leaves', component: ViewAllLeavesComponent
       }
     ]
   },
@@ -39,7 +40,7 @@ export const routes: Routes = [
         path: 'my-leave', component: ViewLeavesComponent
       },
       {
-        path: 'leave', component: AllLeavesComponent
+        path: 'leave', component: ViewManagerLeavesComponent
       }
     ]
   },
@@ -55,7 +56,7 @@ export const routes: Routes = [
     ]
   },
   {
-    path: '**', redirectTo: 'view-employees'
+    path: '**', redirectTo: 'admin/view-employees'
   }
 ];
 
