@@ -21,6 +21,7 @@ export class SidebarComponent implements OnInit{
   usersDropdown: User[] = [];
   selectedId: number | null = null;
   currentUser: User | undefined;
+  isInitialUserSet?: boolean;
   adminDefaultPath: string = '/admin/view-employees';
   managerDefaultPath: string = '/manager/leave';
   employeeDefaultPath: string = '/employee/view-leaves';
@@ -43,6 +44,12 @@ export class SidebarComponent implements OnInit{
     this.sharedService.getAllUsers().subscribe({
       next: (response) => {
         this.usersDropdown = response;
+        if(!this.isInitialUserSet && response.length){
+          this.isInitialUserSet = true;
+          this.selectedId = this.usersDropdown[0].id;
+          this.currentUser = this.usersDropdown[0];
+          this.route.navigate([this.adminDefaultPath]);
+        }
       }
     })
   }
