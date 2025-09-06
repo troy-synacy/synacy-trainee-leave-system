@@ -5,11 +5,27 @@
       <div class="form-group">
         <label for="startDate">Start Date:</label>
         <input id="startDate" formControlName="startDate" type="date" />
+        <div class="error" *ngIf="leaveForm.get('startDate')?.hasError('weekendNotAllowed')">
+          Start date cannot be Saturday or Sunday
+        </div>
+        <div class="error" *ngIf="leaveForm.get('startDate')?.hasError('pastDateNotAllowed')">
+          Start date cannot be earlier than today
+        </div>
       </div>
 
       <div class="form-group">
         <label for="endDate">End Date:</label>
         <input id="endDate" formControlName="endDate" type="date" />
+        <div class="error" *ngIf="leaveForm.get('endDate')?.hasError('weekendNotAllowed')">
+          End date cannot be Saturday or Sunday
+        </div>
+        <div class="error" *ngIf="leaveForm.get('endDate')?.hasError('pastDateNotAllowed')">
+          End date cannot be earlier than today
+        </div>
+      </div>
+
+      <div class="form-error" *ngIf="leaveForm.hasError('invalidRange')">
+        End date cannot be earlier than start date
       </div>
 
       <div class="form-group">

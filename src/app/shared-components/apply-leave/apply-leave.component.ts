@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ManagerService} from '../../pages/manager/service/manager.service';
+import {NgIf} from '@angular/common';
+import {DateValidators} from '../validators/date-validator';
 
 @Component({
   selector: 'app-apply-leave',
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, NgIf],
   templateUrl: './apply-leave.component.html',
   styleUrl: './apply-leave.component.scss'
 })
@@ -21,14 +20,15 @@ export class ApplyLeaveComponent implements OnInit{
   constructor(private readonly managerService: ManagerService) {
     this.leaveForm = new FormGroup({
       userId: new FormControl(3),
-      startDate: new FormControl(''),
-      endDate: new FormControl(''),
+      startDate: new FormControl('', [Validators.required, DateValidators.noPastDate, DateValidators.noWeekends]),
+      endDate: new FormControl('', [Validators.required, DateValidators.noPastDate, DateValidators.noWeekends]),
       numberOfDays: new FormControl(''),
       reason: new FormControl('')
-    })
+    }, { validators: DateValidators.dateRange() });
   }
 
-  ngOnInit() {
+
+    ngOnInit() {
     this.leaveForm.get('startDate')?.valueChanges.subscribe(() => this.calculateDays());
     this.leaveForm.get('endDate')?.valueChanges.subscribe(() => this.calculateDays());
   }
@@ -46,7 +46,7 @@ export class ApplyLeaveComponent implements OnInit{
 
     while (current <= end) {
       const day = current.getDay();
-      if (day !== 0 && day !== 6) { // exclude Sunday(0) and Saturday(6)
+      if (day !== 0 && day !== 6) {
         count++;
       }
       current.setDate(current.getDate() + 1);
@@ -65,7 +65,7 @@ export class ApplyLeaveComponent implements OnInit{
     this.managerService.applyLeave(requestBody).subscribe({
       next: () => {
         alert('Leave applied successfully!');
-        this.leaveForm.reset({ userId: 2 }); // keep userId after reset
+        this.leaveForm.reset({ userId: 2 });
       },
       error: () => {
         alert('There was an error applying for leave.');
