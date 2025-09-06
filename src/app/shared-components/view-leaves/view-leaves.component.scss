@@ -5,6 +5,12 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
 .leavesApplicationTable {
   width: 100%;
   border-collapse: collapse;
@@ -21,6 +27,7 @@
     color: white;
     font-weight: 600;
   }
+
 }
 
 .status {

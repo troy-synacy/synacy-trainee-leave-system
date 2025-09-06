@@ -10,124 +10,124 @@
   border-radius: 6px;                  // rounded corners
   box-sizing: border-box;              // include padding in width
   margin-bottom: 15px;                 // spacing before next content
+  font-family: 'Open Sans', sans-serif;
 }
-
+/* Form container */
 .addEmployee {
-  max-width: 600px;
-  margin: 2rem auto;
+  max-width: 600px;              // consistent width
+  margin: 2rem auto;             // center horizontally, give top/bottom space
   padding: 2rem;
-  background: #fff;
+  background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   font-family: 'Open Sans', sans-serif;
 
   h2 {
-    margin-bottom: 1.5rem;
+    text-align: center;
     font-weight: 600;
     font-size: 1.3rem;
     color: #333;
-    text-align: center;  // center the title
+    margin-bottom: 1.5rem;
   }
 
   form {
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;                // space between form groups
   }
 
+  /* Form group styling */
   .formGroup {
-    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
-  }
-
-  .formGroup label {
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #333;
-  }
-
-  .formGroup input,
-  .formGroup select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-family: 'Open Sans', sans-serif;
-    background-color: #fff;
-    color: #333;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-
-  /* Focus effect */
-  .formGroup input:focus,
-  .formGroup select:focus {
-    outline: none;
-    border-color: #34495e; /* match sidebar blue */
-    box-shadow: 0 0 4px rgba(52, 73, 94, 0.3);
-  }
-
-  /* Disabled option style */
-  .formGroup select option[disabled] {
-    color: #999;
-  }
-
-
-  .formGroup {
-    margin-bottom: 1.2rem;
-    display: flex;
-    flex-direction: column;
+    gap: 0.5rem;
 
     label {
-      margin-bottom: 6px;
+      font-weight: 600;
       font-size: 0.95rem;
       color: #555;
     }
 
-    input {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+    input,
+    select {
+      padding: 10px 12px;
       font-size: 0.95rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      color: #333;
+      font-family: 'Open Sans', sans-serif;
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
 
-      &:focus {
-        border-color: #1c352d;
-        outline: none;
-        box-shadow: 0 0 4px rgba(28, 53, 45, 0.3);
-      }
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #34495e;             // subtle brand color for focus
+      box-shadow: 0 0 6px rgba(52, 73, 94, 0.25);
+    }
+
+    select option[disabled] {
+      color: #999;
     }
   }
 
+  /* Form actions (buttons) */
   .formActions {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 12px;
     margin-top: 1.5rem;
 
-    .saveBtn {
-      background-color: #1c352d;
-      color: #fff;
-      padding: 10px 18px;
-      border: none;
+    .saveBtn,
+    .cancelBtn {
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
       border-radius: 6px;
+      border: none;
       cursor: pointer;
       transition: background-color 0.2s;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .saveBtn {
+      background-color: #34495e;
+      color: #fff;
 
       &:hover {
-        background-color: #2f5442;
+        background-color: #374151;
       }
     }
 
     .cancelBtn {
       background-color: #ccc;
       color: #333;
-      padding: 10px 18px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
 
       &:hover {
         background-color: #b5b5b5;
       }
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .addEmployee {
+    padding: 1.5rem;
+  }
+
+  .formActions {
+    flex-direction: column;
+    gap: 10px;
+
+    .saveBtn,
+    .cancelBtn {
+      width: 100%;
+      min-width: unset;
     }
   }
 }
