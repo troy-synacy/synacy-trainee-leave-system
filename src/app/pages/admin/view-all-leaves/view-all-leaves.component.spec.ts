@@ -1,18 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
-import { EmployeeListComponent } from './employee-list.component';
+import { ViewAllLeavesComponent } from './view-all-leaves.component';
 
 describe('ViewAllLeavesComponent', () => {
-  let component: EmployeeListComponent;
-  let fixture: ComponentFixture<EmployeeListComponent>;
+  let component: ViewAllLeavesComponent;
+  let fixture: ComponentFixture<ViewAllLeavesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EmployeeListComponent]
+      imports: [ViewAllLeavesComponent],
+      providers: []
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EmployeeListComponent);
+    fixture = TestBed.createComponent(ViewAllLeavesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,11 +1,3 @@
-<div class="headLabel">All Leaves</div>
-
-<div class="btnRight">
-  <div class="contentBtn">
-    <add-button [buttonLabel]="'Add New +'" [route]="'/employee/add'"></add-button>
-  </div>
-</div>
-
 <table class="employeeTable">
   <thead>
   <tr>
@@ -16,19 +8,24 @@
     <th>End</th>
     <th>Total days</th>
     <th>Status</th>
+    <th>Action</th>
   </tr>
   </thead>
   <tbody>
     @for (leave of leaves; track leave.id ){
-      @if (leaves?.length != 0) {
+      @if (leaves.length != 0) {
         <tr>
           <td>{{ leave.name}}</td>
           <td>{{ leave.manager }}</td>
-          <td>{{ leave.appliedDate }}</td>
+          <td>{{ leave.dateApplied }}</td>
           <td>{{ leave.startDate }}</td>
           <td>{{ leave.endDate }}</td>
           <td>{{ leave.numberOfDays }}</td>
           <td>{{ leave.status }}</td>
+          <td>
+            <button (click)="accept()">Accept</button>
+            <button (click)="reject()">Reject</button>
+          </td>
         </tr>
       } @else {
         <td colspan="6" style="text-align:center; padding: 1rem;">No leave applications found.</td>

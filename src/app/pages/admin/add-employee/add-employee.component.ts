@@ -50,10 +50,10 @@ export class AddEmployeeComponent implements OnInit{
 
   saveUser () {
     const requestBody = this.userForm.getRawValue();
-
+    console.log(requestBody);
     this.adminService.saveUser(requestBody).subscribe({
       next: () => {
-        this.router.navigate(['view-employees']);
+        this.router.navigate(['/admin/view-employees']);
         this.userSignalService.triggerRefreshUsers();
 
       },

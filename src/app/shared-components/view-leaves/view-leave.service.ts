@@ -14,7 +14,7 @@ export class ViewLeaveService {
     return this.http.get<LeaveApplication[]>(`${this.URL}/${userId}/leave-applications`);
   }
 
-  cancelLeave(leaveId: number) {
+  cancelLeave(leaveId: number | undefined) {
     return this.http.put<void>(
       `/api/v1/leave/application/${leaveId}/status?leaveStatus=CANCELLED`,
       {}
