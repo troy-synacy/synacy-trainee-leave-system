@@ -3,21 +3,24 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ManagerService } from '../../pages/manager/service/manager.service';
 import { NgIf } from '@angular/common';
 import { DateValidators } from '../validators/date-validator';
+import {UserContext} from '../service/user-context.service';
 
 @Component({
   selector: 'app-apply-leave',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './apply-leave.component.html',
-  styleUrls: ['./apply-leave.component.scss'] // <- plural
+  styleUrls: ['./apply-leave.component.scss']
 })
 export class ApplyLeaveComponent implements OnInit {
   leaveForm: FormGroup;
   isProcessing = false;
 
-  constructor(private readonly managerService: ManagerService) {
+
+  constructor(private readonly managerService: ManagerService, private readonly userContext: UserContext) {
+    const id = this.userContext.getUser()?.id
     this.leaveForm = new FormGroup({
-      userId: new FormControl(3),
+      userId: new FormControl(id),
       startDate: new FormControl('', [
         Validators.required,
         DateValidators.noPastDate(),
@@ -66,7 +69,7 @@ export class ApplyLeaveComponent implements OnInit {
     this.managerService.applyLeave(requestBody).subscribe({
       next: () => {
         alert('Leave applied successfully!');
-        this.leaveForm.reset({ userId: 3 }); // keep a consistent default if you like
+        this.leaveForm.reset({ userId: this.userContext.getUser()?.id }); // keep a consistent default if you like
       },
       error: () => {
         alert('There was an error applying for leave.');
@@ -78,6 +81,6 @@ export class ApplyLeaveComponent implements OnInit {
   }
 
   cancel() {
-    this.leaveForm.reset();
+    this.leaveForm.reset({ userId: this.userContext.getUser()?.id });
   }
 }

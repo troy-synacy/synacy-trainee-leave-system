@@ -1,6 +1,6 @@
 <aside class="sidebar" [class.closed]="!open">
 
-  <label>Current User</label>
+  <label>CURRENT USER</label>
   <select [(ngModel)]="selectedId" (change)="onChange()">
     <option [ngValue]="null">— Select user —</option>
     @for (u of usersDropdown; track u.id) {
