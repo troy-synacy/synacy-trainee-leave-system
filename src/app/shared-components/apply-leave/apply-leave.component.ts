@@ -4,6 +4,7 @@ import { ManagerService } from '../../pages/manager/service/manager.service';
 import { NgIf } from '@angular/common';
 import { DateValidators } from '../validators/date-validator';
 import {UserContext} from '../service/user-context.service';
+import {User} from '../../pages/admin/models/user.interface';
 
 @Component({
   selector: 'app-apply-leave',
@@ -15,7 +16,7 @@ import {UserContext} from '../service/user-context.service';
 export class ApplyLeaveComponent implements OnInit {
   leaveForm: FormGroup;
   isProcessing = false;
-
+  credits = 0;
 
   constructor(private readonly managerService: ManagerService, private readonly userContext: UserContext) {
     const id = this.userContext.getUser()?.id
@@ -32,11 +33,13 @@ export class ApplyLeaveComponent implements OnInit {
         DateValidators.noWeekends()
       ]),
       numberOfDays: new FormControl(''),
-      reason: new FormControl('')
-    }, { validators: DateValidators.dateRange() }); // group validator factory called
+      reason: new FormControl(''),
+    }, { validators: DateValidators.dateRange() });
   }
 
   ngOnInit() {
+    const user = this.userContext.getUser();
+    this.credits = user?.remainingLeaveCredits || 0;
     this.leaveForm.get('startDate')?.valueChanges.subscribe(() => this.calculateDays());
     this.leaveForm.get('endDate')?.valueChanges.subscribe(() => this.calculateDays());
   }
