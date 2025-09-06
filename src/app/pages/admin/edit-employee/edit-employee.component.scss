@@ -1,0 +1,133 @@
+.headLabel {
+  display: block;                     // full-width
+  width: 100%;                        // stretches across the parent
+  background-color: #34495e;          // dark blue-gray
+  color: #fff;
+  text-align: left;                     // centers the text
+  padding: 10px 20px;                      // vertical padding
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 6px;                  // rounded corners
+  box-sizing: border-box;              // include padding in width
+  margin-bottom: 15px;                 // spacing before next content
+  font-family: 'Open Sans', sans-serif;
+}
+/* Form container */
+.addEmployee {
+  max-width: 600px;              // consistent width
+  margin: 2rem auto;             // center horizontally, give top/bottom space
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Open Sans', sans-serif;
+
+  h2 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;                // space between form groups
+  }
+
+  /* Form group styling */
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    input,
+    select {
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      color: #333;
+      font-family: 'Open Sans', sans-serif;
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #34495e;             // subtle brand color for focus
+      box-shadow: 0 0 6px rgba(52, 73, 94, 0.25);
+    }
+
+    select option[disabled] {
+      color: #999;
+    }
+  }
+
+  /* Form actions (buttons) */
+  .formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 1.5rem;
+
+    .saveBtn,
+    .cancelBtn {
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .saveBtn {
+      background-color: #34495e;
+      color: #fff;
+
+      &:hover {
+        background-color: #374151;
+      }
+    }
+
+    .cancelBtn {
+      background-color: #ccc;
+      color: #333;
+
+      &:hover {
+        background-color: #b5b5b5;
+      }
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .addEmployee {
+    padding: 1.5rem;
+  }
+
+  .formActions {
+    flex-direction: column;
+    gap: 10px;
+
+    .saveBtn,
+    .cancelBtn {
+      width: 100%;
+      min-width: unset;
+    }
+  }
+}

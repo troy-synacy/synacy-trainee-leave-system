@@ -6,6 +6,10 @@ import {ViewAllLeavesComponent} from './pages/admin/view-all-leaves/view-all-lea
 import {ViewManagerLeavesComponent} from './pages/manager/view-manager-leaves/view-manager-leaves.component';
 import {ViewManagerOwnLeavesComponent} from './pages/manager/view-manager-own-leaves/view-manager-own-leaves';
 import {ApplyManagerLeave} from './pages/manager/apply-manager-leave/apply-manager-leave';
+import {ApplyEmployeeLeaveComponent} from './pages/employee/apply-employee-leave/apply-employee-leave.component';
+import {
+  ViewEmployeeOwnLeaveComponent
+} from './pages/employee/view-employee-own-leave/view-employee-own-leave.component';
 
 export const routes: Routes = [
   {
@@ -47,12 +51,12 @@ export const routes: Routes = [
   {
     path: 'employee',
     children: [
-      // {
-      //   path: 'view-leaves', component: ViewLeavesComponent
-      // },
-      // {
-      //   path: 'apply-leave', component: ApplyLeaveComponent
-      // }
+      {
+        path: 'view-leaves', component: ViewEmployeeOwnLeaveComponent
+      },
+      {
+        path: 'apply-leave', component: ApplyEmployeeLeaveComponent
+      }
     ]
   },
   {
