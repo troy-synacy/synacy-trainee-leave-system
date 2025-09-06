@@ -1,16 +1,19 @@
 <aside class="sidebar" [class.closed]="!open">
 
-  <label>CURRENT USER</label>
-  <select [(ngModel)]="selectedId" (change)="onChange()">
-    <option [ngValue]="null">— Select user —</option>
-    @for (u of usersDropdown; track u.id) {
-      <option [ngValue]="u.id">
-        {{ u.name }} ({{ u.role }})
-      </option>
-    } @empty {
-      <option disabled>— No users found —</option>
-    }
-  </select>
+  <div class="user-select">
+    <label>CURRENT USER</label>
+    <select [(ngModel)]="selectedId" (change)="onChange()">
+      <option [ngValue]="null">— Select user —</option>
+      @for (u of usersDropdown; track u.id) {
+        <option [ngValue]="u.id">
+          {{ u.name }} ({{ u.role }})
+        </option>
+      } @empty {
+        <option disabled>— No users found —</option>
+      }
+    </select>
+  </div>
+
 
   @if (currentUser?.role == "HR") {
     <label class="section-label">HR</label>
