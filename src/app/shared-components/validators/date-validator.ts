@@ -1,34 +1,42 @@
-import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class DateValidators {
+  // Factory: call DateValidators.noPastDate() when registering
   static noPastDate(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      if (!control.value) return null;
+      const value = control.value;
+      if (!value) return null; // don't validate empty values here (Validators.required handles that)
+      const date = new Date(value);
+      if (isNaN(date.getTime())) return null;
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      const inputDate = new Date(control.value);
-      return inputDate < today ? { pastDateNotAllowed: true } : null;
+      return date < today ? { pastDateNotAllowed: true } : null;
     };
   }
 
+  // Factory: call DateValidators.noWeekends() when registering
   static noWeekends(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      if (!control.value) return null;
-      const date = new Date(control.value);
-      const day = date.getDay();
-      return (day === 0 || day === 6) ? { weekendNotAllowed: true } : null;
+      const value = control.value;
+      if (!value) return null;
+      const date = new Date(value);
+      if (isNaN(date.getTime())) return null;
+      const d = date.getDay();
+      return (d === 0 || d === 6) ? { weekendNotAllowed: true } : null;
     };
   }
 
+  // Group-level factory: call DateValidators.dateRange()
   static dateRange(): ValidatorFn {
     return (group: AbstractControl): ValidationErrors | null => {
-      const start = group.get('startDate')?.value;
-      const end = group.get('endDate')?.value;
-      if (!start || !end) return null;
-
-      const startDate = new Date(start);
-      const endDate = new Date(end);
-      return endDate < startDate ? { invalidRange: true } : null;
+      if (!group || !group.get) return null;
+      const startVal = group.get('startDate')?.value;
+      const endVal = group.get('endDate')?.value;
+      if (!startVal || !endVal) return null;
+      const start = new Date(startVal);
+      const end = new Date(endVal);
+      if (isNaN(start.getTime()) || isNaN(end.getTime())) return null;
+      return end < start ? { invalidRange: true } : null;
     };
   }
 }

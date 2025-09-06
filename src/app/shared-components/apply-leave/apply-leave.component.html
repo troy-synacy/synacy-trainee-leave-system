@@ -1,32 +1,34 @@
 <div class="apply-leave-wrapper">
-    <h2 class="form-title">Apply for Leave</h2>
+  <h2 class="form-title">Apply for Leave</h2>
   <div class="form-content">
     <form [formGroup]="leaveForm" (ngSubmit)="applyLeave()" class="apply-leave-form">
       <div class="form-group">
         <label for="startDate">Start Date:</label>
         <input id="startDate" formControlName="startDate" type="date" />
-        <div class="error" *ngIf="leaveForm.get('startDate')?.hasError('weekendNotAllowed')">
-          Start date cannot be Saturday or Sunday
-        </div>
-        <div class="error" *ngIf="leaveForm.get('startDate')?.hasError('pastDateNotAllowed')">
-          Start date cannot be earlier than today
-        </div>
+
+        @if (leaveForm.hasError('weekendNotAllowed', 'startDate')) {
+          <div class="error">Start date cannot be Saturday or Sunday</div>
+        }
+        @if (leaveForm.hasError('pastDateNotAllowed', 'startDate')) {
+          <div class="error">Start date cannot be earlier than today</div>
+        }
       </div>
 
       <div class="form-group">
         <label for="endDate">End Date:</label>
         <input id="endDate" formControlName="endDate" type="date" />
-        <div class="error" *ngIf="leaveForm.get('endDate')?.hasError('weekendNotAllowed')">
-          End date cannot be Saturday or Sunday
-        </div>
-        <div class="error" *ngIf="leaveForm.get('endDate')?.hasError('pastDateNotAllowed')">
-          End date cannot be earlier than today
-        </div>
+
+        @if (leaveForm.hasError('weekendNotAllowed', 'endDate')) {
+          <div class="error">End date cannot be Saturday or Sunday</div>
+        }
+        @if (leaveForm.hasError('pastDateNotAllowed', 'endDate')) {
+          <div class="error">End date cannot be earlier than today</div>
+        }
       </div>
 
-      <div class="form-error" *ngIf="leaveForm.hasError('invalidRange')">
-        End date cannot be earlier than start date
-      </div>
+      @if (leaveForm.hasError('invalidRange')) {
+        <div class="form-error">End date cannot be earlier than start date</div>
+      }
 
       <div class="form-group">
         <label for="numberOfDays">Total Days:</label>
@@ -39,7 +41,9 @@
       </div>
 
       <div class="form-actions">
-        <button class="apply-btn" type="submit" [disabled]="leaveForm.invalid">{{ isProcessing ? 'Applying...' : 'Apply' }}</button>
+        <button class="apply-btn" type="submit" [disabled]="leaveForm.invalid">
+          {{ isProcessing ? 'Applying...' : 'Apply' }}
+        </button>
         <button class="cancelBtn" type="button" (click)="cancel()">Cancel</button>
       </div>
     </form>
