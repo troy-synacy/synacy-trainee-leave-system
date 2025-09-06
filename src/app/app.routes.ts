@@ -45,7 +45,6 @@ export const routes: Routes = [
   },
   {
     path: 'employee',
-    // component: ViewLeavesComponent,
     children: [
       {
         path: 'view-leaves', component: ViewLeavesComponent

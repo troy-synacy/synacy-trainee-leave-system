@@ -6,6 +6,7 @@ import {UserContext} from '../service/user-context.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedService} from '../service/shared.service';
 import {UserSignalService} from '../service/user-signal.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,10 +21,14 @@ export class SidebarComponent implements OnInit{
   usersDropdown: User[] = [];
   selectedId: number | null = null;
   currentUser: User | undefined;
+  adminDefaultPath: string = '/admin/view-employees';
+  managerDefaultPath: string = '/manager/leave';
+  employeeDefaultPath: string = '/employee/view-leaves';
 
   constructor(private userContext: UserContext,
               private readonly sharedService: SharedService,
-              private readonly userSignalService: UserSignalService) {
+              private readonly userSignalService: UserSignalService,
+              private readonly route: Router) {
     effect(() => {
       this.userSignalService.refreshUsers();
       this.loadUsers();
@@ -51,7 +56,15 @@ export class SidebarComponent implements OnInit{
         this.loadUsers();
       }
     }
+
+    if (this.currentUser?.role == 'HR') {
+      this.route.navigate([this.adminDefaultPath]);
+    }
+    else if (this.currentUser?.role == 'MANAGER') {
+      this.route.navigate([this.managerDefaultPath]);
+    }
+    else {
+      this.route.navigate([this.employeeDefaultPath]);
+    }
   }
-
-
 }
