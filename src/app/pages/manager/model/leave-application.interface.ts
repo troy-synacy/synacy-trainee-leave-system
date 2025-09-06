@@ -9,8 +9,9 @@ export interface LeaveRequest {
 }
 
 export interface LeaveApplication{
+  id: number;
   name: string;
-  appliedDate: String;
+  dateApplied: String;
   manager: String;
   startDate: String;
   endDate: String;
