@@ -32,7 +32,7 @@ export class LeaveTableComponent implements OnInit{
   pageNumber: number | undefined;
   totalUserCount: number | undefined;
   pageSize = 5;
-  currentUserId: number | undefined;
+  currentUserId: number;
 
   approved: ConfirmationData = {
     title: 'Approve Leave Application',
