@@ -13,6 +13,9 @@ import {
 import {
   AdminLeaveApplicationHistoryComponent
 } from './pages/admin/admin-leave-application-history/admin-leave-application-history.component';
+import {
+  ManagerEmployeesLeaveHistoryComponent
+} from './pages/manager/manager-employees-leave-history/manager-employees-leave-history.component';
 
 export const routes: Routes = [
   {
@@ -51,6 +54,9 @@ export const routes: Routes = [
       },
       {
         path: 'leave', component: ViewManagerLeavesComponent
+      },
+      {
+        path: 'leave-history', component: ManagerEmployeesLeaveHistoryComponent
       }
     ]
   },

@@ -16,8 +16,8 @@ export class LeaveApplicationService {
     return this.http.get<PaginatedLeaveApplication>(`${this.URL}/status?status=${status}&page=${page}&max=${max}`);
   }
 
-  getAllLeaveApplicationsByManagerAndStatus(id: number | undefined, status: string, page: number, max: number) {
-    return this.http.get<PaginatedLeaveApplication>(`${this.URL}s/manager/${id}?status=${status}&page=${page}&max=${max}`);
+  getAllLeaveApplicationsByManagerAndStatus(managerId: number, status: string, page: number, max: number){
+    return this.http.get<PaginatedLeaveApplication>(`${this.URL}/${managerId}/status?status=${status}&page=${page}&max=${max}`)
   }
 
   changeStatusOfLeaveApplication(id: number, status: string) {
