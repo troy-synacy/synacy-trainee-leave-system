@@ -40,6 +40,18 @@ export class EditEmployeeComponent implements OnInit{
 
   ngOnInit() {
     this.loadManagers()
+
+    this.userForm.get('role')?.valueChanges.subscribe(role => {
+      if(role == 'HR'){
+        this.userForm.get('leaveCredits')?.reset();
+        this.userForm.get('leaveCredits')?.disable();
+        this.userForm.get('managerId')?.reset();
+        this.userForm.get('managerId')?.disable();
+      } else {
+        this.userForm.get('leaveCredits')?.enable();
+        this.userForm.get('managerId')?.enable();
+      }
+    })
   }
 
   loadUser(){
