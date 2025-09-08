@@ -109,7 +109,6 @@ export class ApplyLeaveComponent implements OnInit {
 
     this.dialog.open(ConfirmationModalComponent, {
       width: '360px',
-      // disableClose: true,
       data: this.canceled
     }).afterClosed().subscribe(confirmed => {
       if (confirmed) {
