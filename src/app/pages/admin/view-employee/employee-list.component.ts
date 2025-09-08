@@ -4,13 +4,16 @@ import {User} from '../models/user.interface';
 import {AdminService} from '../service/admin.service';
 import {PaginatedUsers} from '../models/paginated-users.interface';
 import {RouterLink} from '@angular/router';
+import {PaginatorComponent} from '../../../shared-components/paginator/paginator.component';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
   imports: [
     ButtonComponent,
-    RouterLink
+    RouterLink,
+    PaginatorComponent
   ],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.scss'
@@ -19,15 +22,21 @@ export class EmployeeListComponent implements OnInit{
   users: User[] | undefined;
   pageNumber: number | undefined;
   totalUserCount: number | undefined;
+  pageSize = 5;
 
   constructor(private readonly adminService: AdminService) {}
 
   ngOnInit() {
     this.loadUsers();
   }
+  onPageChange(event: PageEvent) {
+    this.pageNumber = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.loadUsers();
+  }
 
   loadUsers(){
-    this.adminService.getAllUsers().subscribe({
+    this.adminService.getAllUsers(this.pageNumber ?? 1, this.pageSize).subscribe({
       next: (response: PaginatedUsers) => {
         this.pageNumber = response.pageNumber;
         this.totalUserCount = response.totalCount
