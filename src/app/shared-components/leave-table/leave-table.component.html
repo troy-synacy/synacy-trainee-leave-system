@@ -13,10 +13,14 @@
   </tr>
   </thead>
   <tbody>
-    @for (leave of leaves; track leave.id ){
-      @if (leaves.length != 0) {
+    @if (leaves.length === 0) {
+      <tr>
+        <td colspan="8" style="text-align:center; padding: 1rem;">No leave applications found.</td>
+      </tr>
+    } @else {
+      @for (leave of leaves; track leave.id) {
         <tr>
-          <td>{{ leave.name}}</td>
+          <td>{{ leave.name }}</td>
           <td>{{ leave.manager }}</td>
           <td>{{ leave.dateApplied }}</td>
           <td>{{ leave.startDate }}</td>
@@ -28,9 +32,15 @@
             <button mat-button color="warn" (click)="reject(leave.id)">Reject</button>
           </td>
         </tr>
-      } @else {
-        <td colspan="6" style="text-align:center; padding: 1rem;">No leave applications found.</td>
       }
     }
   </tbody>
 </table>
+
+<app-paginator
+  [length]="totalUserCount || 0"
+  [pageIndex]="pageNumber ? pageNumber - 1 : 0"
+  [pageSize]="5"
+  [pageSizeOptions]="[5, 10, 20]"
+  (pageChange)="onPageChange($event)">
+</app-paginator>
