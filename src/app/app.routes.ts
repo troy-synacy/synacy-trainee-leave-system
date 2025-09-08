@@ -10,6 +10,9 @@ import {ApplyEmployeeLeaveComponent} from './pages/employee/apply-employee-leave
 import {
   ViewEmployeeOwnLeaveComponent
 } from './pages/employee/view-employee-own-leave/view-employee-own-leave.component';
+import {
+  AdminLeaveApplicationHistoryComponent
+} from './pages/admin/admin-leave-application-history/admin-leave-application-history.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +34,9 @@ export const routes: Routes = [
       },
       {
         path: 'view-leaves', component: ViewAllLeavesComponent
+      },
+      {
+        path: 'leave-history', component: AdminLeaveApplicationHistoryComponent
       }
     ]
   },
