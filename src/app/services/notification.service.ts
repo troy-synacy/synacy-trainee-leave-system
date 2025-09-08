@@ -12,6 +12,10 @@ export class NotificationService {
     this.notificationListener.set({message, type: 'success'})
   }
 
+  error(message: string) {
+    this.notificationListener.set({ message, type: 'fail' });
+  }
+
   clear(){
     this.notificationListener.set(null)
   }

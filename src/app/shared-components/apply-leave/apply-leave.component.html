@@ -19,7 +19,7 @@
         <input id="endDate" formControlName="endDate" type="date" />
 
         @if (leaveForm.hasError('weekendNotAllowed', 'endDate')) {
-          <div class="error">End date cannot be Saturday or Sunday</div>
+          <div class="error">End date cannot be on weekends</div>
         }
         @if (leaveForm.hasError('pastDateNotAllowed', 'endDate')) {
           <div class="error">End date cannot be earlier than today</div>
@@ -33,6 +33,10 @@
       <div class="form-group">
         <label for="numberOfDays">Total Days:</label>
         <input id="numberOfDays" formControlName="numberOfDays" type="number" readonly />
+
+        @if (exceedCreditsSignal()) {
+          <div class="error">You don't have enough leave credits</div>
+        }
       </div>
 
       <div class="form-group">
@@ -41,7 +45,8 @@
       </div>
 
       <div class="form-actions">
-        <button class="apply-btn" type="submit" [disabled]="leaveForm.invalid">
+        <button class="apply-btn" type="submit"
+                [disabled]="leaveForm.invalid || exceedCreditsSignal()">
           {{ isProcessing ? 'Applying...' : 'Apply' }}
         </button>
         <button class="cancelBtn" type="button" (click)="cancel()">Cancel</button>
