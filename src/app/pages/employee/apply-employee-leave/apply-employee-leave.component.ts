@@ -18,24 +18,7 @@ export class ApplyEmployeeLeaveComponent {
   leaves: LeaveApplication[] = [];
   userRole?: string;
 
-  constructor(private readonly userContext: UserContext,
-              private readonly snackBar: MatSnackBar,
-              private readonly notificationService: NotificationService) {
+  constructor(private readonly userContext: UserContext) {
     this.userRole = this.userContext.getUser()?.role;
-
-    effect(() => {
-      const listener = this.notificationService.notificationListener();
-
-      if(listener){
-        this.snackBar.open(listener.message, undefined, {
-          duration: 3000,
-          horizontalPosition: "right",
-          verticalPosition: "top",
-          panelClass: "snack-success",
-          politeness: "assertive"
-        })
-        untracked(() =>this.notificationService.clear());
-      }
-    },{ allowSignalWrites: true});
   }
 }
