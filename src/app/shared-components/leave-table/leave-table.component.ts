@@ -6,12 +6,15 @@ import {MatButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
 import {ConfirmationData} from '../../models/confirmation-data.interface';
+import {PaginatorComponent} from '../paginator/paginator.component';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-leave-table',
   standalone: true,
   imports: [
-    MatButton
+    MatButton,
+    PaginatorComponent
   ],
   templateUrl: './leave-table.component.html',
   styleUrl: './leave-table.component.scss'
@@ -23,8 +26,12 @@ export class LeaveTableComponent implements OnInit{
 
   approveStatus = 'APPROVED';
   rejectStatus = 'REJECTED';
+  pendingStatus = 'PENDING';
 
   leaves: LeaveApplication[] = [];
+  pageNumber: number | undefined;
+  totalUserCount: number | undefined;
+  pageSize = 5;
   currentUserId: number | undefined;
 
   approved: ConfirmationData = {
@@ -44,34 +51,45 @@ export class LeaveTableComponent implements OnInit{
   constructor(private readonly leaveApplicationService: LeaveApplicationService,
               private readonly userContext: UserContext) {
     this.currentUserId = this.userContext.getUser()?.id;
+    console.log(this.currentUserId);
   }
 
   ngOnInit() {
+    console.log(this.currentUserId);
+    this.fetchLeaves();
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageNumber = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+
     this.fetchLeaves();
   }
 
   fetchLeaves() {
-    if(this.userRole == "HR") {
-      this.leaveApplicationService.getAllLeaveApplications().subscribe({
-        next: (response) => {
-          this.leaves = response;
-        },
-        error: () => {
-          console.log("Error fetching leaves yes");
-        }
-      });
-    }
-    else if (this.userRole == 'MANAGER'){
-      this.leaveApplicationService.getAllLeaveApplicationsByManager(this.currentUserId).subscribe({
-        next: (response) => {
-          this.leaves = response;
-        },
-        error: () => {
-          console.log("Error fetching leaves");
-        }
-      });
+    if (this.userRole == "HR") {
+      this.leaveApplicationService
+        .getAllLeaveApplicationsByStatus(this.pendingStatus, this.pageNumber ?? 1, this.pageSize)
+        .subscribe({
+          next: (response) => {
+            this.leaves = response.content;
+            this.pageNumber = response.pageNumber;
+            this.totalUserCount = response.totalCount;
+          }
+        });
+    } else {
+      this.leaveApplicationService
+        .getAllLeaveApplicationsByManagerAndStatus(this.currentUserId, this.pendingStatus, this.pageNumber ?? 1, this.pageSize)
+        .subscribe({
+          next: (response) => {
+            this.leaves = response.content;
+            this.pageNumber = response.pageNumber;
+            this.totalUserCount = response.totalCount;
+          }
+        });
     }
   }
+
 
   approve(id: number) {
     this.dialog.open(ConfirmationModalComponent, {

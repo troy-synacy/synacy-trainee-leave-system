@@ -16,5 +16,5 @@ export interface LeaveApplication{
   startDate: string;
   endDate: string;
   numberOfDays: number;
-  status: string;
+  status: 'APPROVED' | 'PENDING' | 'REJECTED' | 'CANCELLED';
 }
