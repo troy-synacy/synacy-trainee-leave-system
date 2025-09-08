@@ -19,7 +19,6 @@
     <label class="section-label">HR</label>
     <nav class="nav">
       <add-button [buttonLabel]="'View Employees'" [route]="'/admin/view-employees'"></add-button>
-      <add-button [buttonLabel]="'Add Employee'" [route]="'/admin/add-employee'"></add-button>
       <add-button [buttonLabel]="'View All Leaves'" [route]="'/admin/view-leaves'"></add-button>
     </nav>
   } @else if(currentUser?.role == "MANAGER") {

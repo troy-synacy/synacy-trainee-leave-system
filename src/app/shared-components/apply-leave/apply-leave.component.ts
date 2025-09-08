@@ -87,7 +87,6 @@ export class ApplyLeaveComponent implements OnInit {
 
     this.managerService.applyLeave(requestBody).subscribe({
       next: () => {
-        alert('Leave applied successfully!');
         this.notificationService.success('Successfully Applied Leave Application');
         this.leaveForm.reset({ userId: this.userContext.getUser()?.id });
       },

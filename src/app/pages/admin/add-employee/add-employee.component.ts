@@ -4,6 +4,7 @@ import {Router, RouterLink} from '@angular/router';
 import {AdminService} from '../service/admin.service';
 import {Manager} from '../models/manager.interface';
 import {UserSignalService} from '../../../shared-components/service/user-signal.service';
+import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -23,7 +24,8 @@ export class AddEmployeeComponent implements OnInit{
 
   constructor(private readonly router: Router,
               private readonly adminService: AdminService,
-              private readonly userSignalService: UserSignalService) {
+              private readonly userSignalService: UserSignalService,
+              private readonly notificationService: NotificationService) {
     this.userForm = new FormGroup({
       name: new FormControl(),
       role: new FormControl(),
@@ -66,8 +68,8 @@ export class AddEmployeeComponent implements OnInit{
     this.adminService.saveUser(requestBody).subscribe({
       next: () => {
         this.router.navigate(['/admin/view-employees']);
+        this.notificationService.success("Employee successfully created!");
         this.userSignalService.triggerRefreshUsers();
-
       },
       error: () => {
         console.log("Error saving product!");
