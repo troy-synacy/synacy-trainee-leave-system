@@ -6,7 +6,14 @@ import {User} from '../../pages/admin/models/user.interface';
 })
 
 export class UserContext {
-  currentUser: User | undefined;
+  currentUser: User = {
+    id: 1,
+    name: 'HR',
+    role: 'HR',
+    totalLeaveCredits: 0,
+    remainingLeaveCredits: 0,
+    manager: null
+  };
 
   setUser(user: User) {
     this.currentUser = user;

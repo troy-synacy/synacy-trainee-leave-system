@@ -12,10 +12,6 @@ export class LeaveApplicationService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getAllNonPendingLeaveApplication(page: number, max: number) {
-    return this.http.get<PaginatedLeaveApplication>(`${this.URL}/admin/history?page=${page}&max=${max}`);
-  }
-
   getAllLeaveApplicationsByStatus(status: string, page: number, max: number) {
     return this.http.get<PaginatedLeaveApplication>(`${this.URL}/status?status=${status}&page=${page}&max=${max}`);
   }
