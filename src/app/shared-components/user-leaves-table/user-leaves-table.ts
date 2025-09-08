@@ -35,9 +35,11 @@ export class UserLeavesTable implements OnInit{
 
   constructor(private viewLeaveService: ViewLeaveService, private userContext: UserContext) {}
 
-  ngOnInit(): void {
-    this.currentUserId = this.userContext.getUser()?.id;
-    this.fetchLeaves();
+  async ngOnInit(): Promise<void> {
+    this.currentUserId = await this.userContext.getUser()?.id;
+    if(this.currentUserId){
+      this.fetchLeaves();
+    }
   }
 
   fetchLeaves() {
