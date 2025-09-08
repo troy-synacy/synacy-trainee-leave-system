@@ -1,4 +1,4 @@
-import {Component, effect} from '@angular/core';
+import {Component, effect, untracked} from '@angular/core';
 import {ApplyLeaveComponent} from '../../../shared-components/apply-leave/apply-leave.component';
 import {LeaveApplication} from '../../manager/model/leave-application.interface';
 import {UserContext} from '../../../shared-components/service/user-context.service';
@@ -34,7 +34,8 @@ export class ApplyEmployeeLeaveComponent {
           panelClass: "snack-success",
           politeness: "assertive"
         })
+        untracked(() =>this.notificationService.clear());
       }
-    });
+    },{ allowSignalWrites: true});
   }
 }
