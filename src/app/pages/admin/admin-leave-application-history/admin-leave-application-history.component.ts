@@ -18,9 +18,10 @@ import {NgForOf} from '@angular/common';
 export class AdminLeaveApplicationHistoryComponent implements OnInit{
 
   leaves: LeaveApplication[] = [];
-  pageNumber: number | undefined;
+  pageNumber = 1;
   totalUserCount: number | undefined;
-  pageSize = 5;
+  status: 'APPROVED' | 'REJECTED' | 'CANCELLED' = 'APPROVED';
+  private pageSize = 5;
 
   constructor(private readonly leaveApplicationService: LeaveApplicationService) {
   }
@@ -37,7 +38,7 @@ export class AdminLeaveApplicationHistoryComponent implements OnInit{
   }
 
   fetchLeaves(){
-    this.leaveApplicationService.getAllNonPendingLeaveApplication(this.pageNumber ?? 1, this.pageSize).subscribe({
+    this.leaveApplicationService.getAllLeaveApplicationsByStatus(this.status, this.pageNumber ?? 1, this.pageSize).subscribe({
       next: (response) => {
         this.pageNumber = response.pageNumber;
         this.totalUserCount = response.totalCount
