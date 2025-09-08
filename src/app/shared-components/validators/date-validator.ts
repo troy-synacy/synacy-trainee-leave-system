@@ -1,11 +1,10 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class DateValidators {
-  // Factory: call DateValidators.noPastDate() when registering
   static noPastDate(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
-      if (!value) return null; // don't validate empty values here (Validators.required handles that)
+      if (!value) return null;
       const date = new Date(value);
       if (isNaN(date.getTime())) return null;
       const today = new Date();
@@ -14,7 +13,6 @@ export class DateValidators {
     };
   }
 
-  // Factory: call DateValidators.noWeekends() when registering
   static noWeekends(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
@@ -26,7 +24,6 @@ export class DateValidators {
     };
   }
 
-  // Group-level factory: call DateValidators.dateRange()
   static dateRange(): ValidatorFn {
     return (group: AbstractControl): ValidationErrors | null => {
       if (!group || !group.get) return null;

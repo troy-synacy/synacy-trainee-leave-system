@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, signal} from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ManagerService } from '../../pages/manager/service/manager.service';
 import { DateValidators } from '../validators/date-validator';
@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationData} from '../../models/confirmation-data.interface';
 import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
 import {NotificationService} from '../../services/notification.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-apply-leave',
@@ -20,10 +21,14 @@ export class ApplyLeaveComponent implements OnInit {
   private notificationService = inject(NotificationService);
 
   private dialog = inject(MatDialog);
+  private hasEnoughCredits(): boolean{
+    const requestedDays = this.leaveForm.get('numberOfDays')?.value || 0;
+    return requestedDays <= this.credits;
+  }
 
   canceled: ConfirmationData = {
-    title: 'Sure kana gyud?',
-    message: 'Pag sure bah??',
+    title: 'Cancel Leave Application?',
+    message: 'Are you sure you want to cancel this application?',
     confirmText: 'Confirm',
     cancelText: 'Cancel'
   }
@@ -32,30 +37,30 @@ export class ApplyLeaveComponent implements OnInit {
   isProcessing = false;
   credits = 0;
 
-  constructor(private readonly managerService: ManagerService, private readonly userContext: UserContext) {
+  exceedCreditsSignal = signal(false);
+
+
+  constructor(private readonly managerService: ManagerService, private readonly userContext: UserContext, private readonly userService: UserService
+  ) {
     const id = this.userContext.getUser()?.id
     this.leaveForm = new FormGroup({
       userId: new FormControl(id),
-      startDate: new FormControl('', [
-        Validators.required,
-        DateValidators.noPastDate(),
-        DateValidators.noWeekends()
-      ]),
-      endDate: new FormControl('', [
-        Validators.required,
-        DateValidators.noPastDate(),
-        DateValidators.noWeekends()
-      ]),
+      startDate: new FormControl('', [Validators.required, DateValidators.noPastDate(), DateValidators.noWeekends()]),
+      endDate: new FormControl('', [Validators.required, DateValidators.noPastDate(), DateValidators.noWeekends()]),
       numberOfDays: new FormControl(''),
       reason: new FormControl(''),
     }, { validators: DateValidators.dateRange() });
   }
 
 
-
   ngOnInit() {
-    const user = this.userContext.getUser();
-    this.credits = user?.remainingLeaveCredits || 0;
+    const userId = this.userContext.getUser()?.id;
+    if (userId) {
+      this.userService.getUserById(userId).subscribe(user => {
+        this.credits = user.remainingLeaveCredits;
+      });
+    }
+
     this.leaveForm.get('startDate')?.valueChanges.subscribe(() => this.calculateDays());
     this.leaveForm.get('endDate')?.valueChanges.subscribe(() => this.calculateDays());
   }
@@ -66,6 +71,7 @@ export class ApplyLeaveComponent implements OnInit {
 
     if (!start || !end || isNaN(start.getTime()) || isNaN(end.getTime())) {
       this.leaveForm.patchValue({ numberOfDays: '' }, { emitEvent: false });
+      this.exceedCreditsSignal.set(false);
       return;
     }
 
@@ -76,7 +82,9 @@ export class ApplyLeaveComponent implements OnInit {
       if (day !== 0 && day !== 6) count++;
       current.setDate(current.getDate() + 1);
     }
+
     this.leaveForm.patchValue({ numberOfDays: count }, { emitEvent: false });
+    this.exceedCreditsSignal.set(count > this.credits);
   }
 
   applyLeave() {
@@ -86,10 +94,18 @@ export class ApplyLeaveComponent implements OnInit {
     const requestBody = this.leaveForm.getRawValue();
 
     this.managerService.applyLeave(requestBody).subscribe({
-      next: () => {
-        this.notificationService.success('Successfully Applied Leave Application');
-        this.leaveForm.reset({ userId: this.userContext.getUser()?.id });
-      },
+        next: () => {
+          this.notificationService.success('Successfully Applied Leave Application');
+
+          const userId = this.userContext.getUser()?.id;
+          if (userId) {
+            this.userService.getUserById(userId).subscribe(user => {
+              this.credits = user.remainingLeaveCredits;
+            });
+          }
+
+          this.leaveForm.reset({ userId: this.userContext.getUser()?.id });
+        },
       error: () => {
         alert('There was an error applying for leave.');
       },
