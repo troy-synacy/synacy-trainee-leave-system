@@ -21,10 +21,6 @@ import {UserSignalService} from '../service/user-signal.service';
 export class UserLeavesTable implements OnInit{
   @Input() userRole?: string;
 
-  private dialog = inject(MatDialog);
-
-  cancelStatus = 'CANCELLED';
-
   canceled: ConfirmationData = {
     title: 'Cancel Leave Application',
     message: 'Do you want to cancel this application?',
@@ -34,10 +30,12 @@ export class UserLeavesTable implements OnInit{
 
   leaves: LeaveApplication[] = [];
   currentUserId: number | undefined;
+  cancelStatus = 'CANCELLED';
 
   constructor(private viewLeaveService: ViewLeaveService,
               private userContext: UserContext,
-              private userSignal: UserSignalService) {
+              private userSignal: UserSignalService,
+              private modal: MatDialog) {
     effect(async () => {
       const userChangeListener = this.userSignal.refreshUsers();
       if(userChangeListener){
@@ -67,7 +65,7 @@ export class UserLeavesTable implements OnInit{
   }
 
   cancelLeave(id: number): void {
-    this.dialog.open(ConfirmationModalComponent, {
+    this.modal.open(ConfirmationModalComponent, {
       width: '360px',
       disableClose: true,
       data: this.canceled

@@ -10,6 +10,7 @@ import {PaginatorComponent} from '../paginator/paginator.component';
 import {PageEvent} from '@angular/material/paginator';
 import {UserSignalService} from '../service/user-signal.service';
 import {NgClass} from '@angular/common';
+import {NotificationService} from '../../services/notification.service';
 
 @Component({
   selector: 'app-leave-table',
@@ -53,7 +54,8 @@ export class LeaveTableComponent{
 
   constructor(private readonly leaveApplicationService: LeaveApplicationService,
               private readonly userContext: UserContext,
-              private readonly userSignalService: UserSignalService) {
+              private readonly userSignalService: UserSignalService,
+              private readonly notificationService: NotificationService) {
 
     effect( async () => {
       this.currentUserId = this.userContext.getUser().id;
@@ -103,6 +105,7 @@ export class LeaveTableComponent{
       if(reject){
         this.leaveApplicationService.changeStatusOfLeaveApplication(id, this.approveStatus).subscribe({
           next: () =>{
+            this.notificationService.success("APPROVED!");
             this.fetchLeaves();
           }
         });
@@ -119,6 +122,7 @@ export class LeaveTableComponent{
       if(reject){
         this.leaveApplicationService.changeStatusOfLeaveApplication(id, this.rejectStatus).subscribe({
           next: () => {
+            this.notificationService.error("ERROR!");
             this.fetchLeaves();
           }
         });

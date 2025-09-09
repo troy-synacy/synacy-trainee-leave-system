@@ -27,7 +27,7 @@ export class AppComponent {
           duration: 3000,
           horizontalPosition: "right",
           verticalPosition: "top",
-          panelClass: "snack-success",
+          panelClass: listener.type == "success" ? "snack-success" : "snack-fail",
           politeness: "assertive"
         })
         untracked(() =>this.notificationService.clear());

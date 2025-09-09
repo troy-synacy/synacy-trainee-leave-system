@@ -33,3 +33,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 
+.mat-mdc-snack-bar-container.snack-fail {
+  /* core look */
+  --mdc-snackbar-container-color: #b71c1c;   /* deep red */
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mdc-snackbar-container-shape: 4px;
+  --mdc-snackbar-container-elevation-shadow:
+    0 10px 24px rgba(0,0,0,.16), 0 2px 8px rgba(0,0,0,.10);
+
+  position: relative;
+  overflow: hidden;
+
+  /* subtle left accent */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #ef5350, #c62828);
+  }
+}
+
+/* make action text readable */
+.mat-mdc-snack-bar-container.snack-fail .mdc-button__label {
+  color: #fff;
+  font-weight: 600;
+}
