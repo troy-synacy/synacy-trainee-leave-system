@@ -21,7 +21,6 @@ export class AdminLeaveApplicationHistoryComponent implements OnInit{
   leaves: LeaveApplication[] = [];
   pageNumber = 1;
   totalUserCount: number | undefined;
-  status: 'APPROVED' | 'REJECTED' | 'CANCELLED' = 'APPROVED';
   private pageSize = 5;
 
   constructor(private readonly leaveApplicationService: LeaveApplicationService) {
@@ -39,7 +38,7 @@ export class AdminLeaveApplicationHistoryComponent implements OnInit{
   }
 
   fetchLeaves(){
-    this.leaveApplicationService.getAllLeaveApplicationsByStatus(this.status, this.pageNumber ?? 1, this.pageSize).subscribe({
+    this.leaveApplicationService.getAllNonPendingLeaveApplications(this.pageNumber ?? 1, this.pageSize).subscribe({
       next: (response) => {
         this.pageNumber = response.pageNumber;
         this.totalUserCount = response.totalCount

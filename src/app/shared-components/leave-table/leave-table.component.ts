@@ -30,7 +30,6 @@ export class LeaveTableComponent{
 
   approveStatus = 'APPROVED';
   rejectStatus = 'REJECTED';
-  pendingStatus = 'PENDING';
 
   leaves: LeaveApplication[] = [];
   pageNumber: number | undefined;
@@ -74,7 +73,7 @@ export class LeaveTableComponent{
   fetchLeaves() {
     if (this.userRole == "HR") {
       this.leaveApplicationService
-        .getAllLeaveApplicationsByStatus(this.pendingStatus, this.pageNumber ?? 1, this.pageSize)
+        .getAllPendingLeaveApplications(this.pageNumber ?? 1, this.pageSize)
         .subscribe({
           next: (response) => {
             this.leaves = response.content;
@@ -84,7 +83,7 @@ export class LeaveTableComponent{
         });
     } else {
       this.leaveApplicationService
-        .getAllLeaveApplicationsByManagerAndStatus(this.currentUserId, this.pendingStatus, this.pageNumber ?? 1, this.pageSize)
+        .getAllLPendingLeaveApplicationsByManagerId(this.currentUserId, this.pageNumber ?? 1, this.pageSize)
         .subscribe({
           next: (response) => {
             this.leaves = response.content;
