@@ -38,7 +38,7 @@
       cursor: pointer;
       transition: border 0.2s ease, box-shadow 0.2s ease;
 
-      margin-bottom: 2rem;  // ⬅️ increased spacing (was 1rem)
+      margin-bottom: 2rem;
       box-sizing: border-box;
     }
   }
@@ -54,7 +54,7 @@
   .sidebar-content {
     display: flex;
     flex-direction: column;
-    gap: 3.5rem;
+    gap: 3.8rem;
     padding: 1rem 0;
   }
 
@@ -73,7 +73,6 @@
       padding: 0.6rem;
       text-align: left;
       font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-      //font-weight: 400; // 👈 normal, not bold
       font-size: 0.95rem;
       cursor: pointer;
       transition: background 0.2s;
