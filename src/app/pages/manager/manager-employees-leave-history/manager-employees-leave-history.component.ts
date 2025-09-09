@@ -3,7 +3,7 @@ import {LeaveApplication} from '../model/leave-application.interface';
 import {LeaveApplicationService} from '../../../services/leave-application.service';
 import {PageEvent} from '@angular/material/paginator';
 import {UserContext} from '../../../shared-components/service/user-context.service';
-import {NgForOf} from '@angular/common';
+import {NgClass, NgForOf} from '@angular/common';
 import {PaginatorComponent} from '../../../shared-components/paginator/paginator.component';
 
 @Component({
@@ -11,7 +11,8 @@ import {PaginatorComponent} from '../../../shared-components/paginator/paginator
   standalone: true,
   imports: [
     NgForOf,
-    PaginatorComponent
+    PaginatorComponent,
+    NgClass
   ],
   templateUrl: './manager-employees-leave-history.component.html',
   styleUrl: './manager-employees-leave-history.component.scss'

@@ -1,14 +1,14 @@
 .headLabel {
-  display: block;                     // full-width
-  width: 100%;                        // stretches across the parent
-  background-color: #34495e;          // dark blue-gray
+  display: block;
+  width: 100%;
+  background-color: #34495e;
   color: #fff;
-  text-align: left;                     // centers the text
-  padding: 10px 20px;                      // vertical padding
+  text-align: left;
+  padding: 10px 20px;
   font-weight: 600;
   font-size: 1.1rem;
-  border-radius: 6px;                  // rounded corners
-  box-sizing: border-box;              // include padding in width
+  border-radius: 6px;
+  box-sizing: border-box;
   margin-bottom: 15px;
   font-family: 'Open Sans', sans-serif;
 }
@@ -24,33 +24,44 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+  font-family: 'Open Sans', sans-serif;
 
   th, td {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #ddd;
-    text-align: left;
+    vertical-align: middle;     // ✅ centers content vertically
+    text-align: center;         // ✅ aligns everything to center
   }
 
   th {
     background-color: #666666;
     color: white;
     font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9; // striped effect
   }
 }
 
 .status {
   font-weight: 600;
+  text-transform: capitalize;
+
   &.approved { color: green; }
   &.pending { color: orange; }
   &.rejected { color: red; }
+  &.cancelled { color: gray; }
 }
 
 .cancelBtn {
-  padding: 5px 12px;
+  padding: 6px 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   background: #e74c3c;
   color: white;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: background 0.2s;
 

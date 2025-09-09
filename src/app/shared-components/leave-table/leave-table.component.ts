@@ -9,13 +9,15 @@ import {ConfirmationData} from '../../models/confirmation-data.interface';
 import {PaginatorComponent} from '../paginator/paginator.component';
 import {PageEvent} from '@angular/material/paginator';
 import {UserSignalService} from '../service/user-signal.service';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-leave-table',
   standalone: true,
   imports: [
     MatButton,
-    PaginatorComponent
+    PaginatorComponent,
+    NgClass
   ],
   templateUrl: './leave-table.component.html',
   styleUrl: './leave-table.component.scss'

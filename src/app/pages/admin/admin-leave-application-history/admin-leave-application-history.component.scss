@@ -24,33 +24,52 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+  font-family: 'Open Sans', sans-serif;
 
   th, td {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #ddd;
-    text-align: left;
+    vertical-align: middle;   // 👈 keeps text/buttons centered vertically
   }
 
   th {
     background-color: #666666;
     color: white;
     font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;       // 👈 consistent header alignment
+  }
+
+  td {
+    font-size: 0.9rem;
+    color: #333;
+    text-align: center;       // 👈 centers all cell content
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9; // striped effect for readability
   }
 }
 
 .status {
   font-weight: 600;
+  text-transform: capitalize;
+
   &.approved { color: green; }
   &.pending { color: orange; }
   &.rejected { color: red; }
+  &.cancelled { color: gray; }
 }
 
+
+/* Cancel button */
 .cancelBtn {
-  padding: 5px 12px;
+  padding: 6px 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   background: #e74c3c;
   color: white;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: background 0.2s;
 
@@ -63,3 +82,4 @@
     background: #c0392b;
   }
 }
+

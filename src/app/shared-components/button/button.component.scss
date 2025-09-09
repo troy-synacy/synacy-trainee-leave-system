@@ -1,38 +1,31 @@
-
-.addBtn {
-  margin-top: 10px;
-  text-align: left;
-}
-
 .add-btn {
   display: inline-block;
   width: 100%;
-  max-width: 200px;
-  padding: 10px 20px;
-  font-weight: 600;
-  font-size: 0.95rem;
+  max-width: 240px;               /* wider than before */
+  padding: 12px 24px;             /* taller + more horizontal space */
+  font-weight: 400;               /* normal weight */
+  font-size: 1rem;                /* slightly larger text */
   text-align: left;
   color: #fff;
-  background: #2c3e50;          // dark blue-gray to match sidebar
+  background: #2c3e50;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    background: #34495e;        // slightly lighter on hover
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    background: #3a5068;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
   }
 
   &:active {
-    transform: translateY(0);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    background: #324a5e;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(52, 73, 94, 0.3); // subtle focus ring
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
   }
 }

@@ -3,14 +3,15 @@ import {LeaveApplication} from '../../manager/model/leave-application.interface'
 import {LeaveApplicationService} from '../../../services/leave-application.service';
 import {PaginatorComponent} from '../../../shared-components/paginator/paginator.component';
 import {PageEvent} from '@angular/material/paginator';
-import {NgForOf} from '@angular/common';
+import {NgClass, NgForOf} from '@angular/common';
 
 @Component({
   selector: 'app-admin-leave-application-history',
   standalone: true,
   imports: [
     PaginatorComponent,
-    NgForOf
+    NgForOf,
+    NgClass
   ],
   templateUrl: './admin-leave-application-history.component.html',
   styleUrl: './admin-leave-application-history.component.scss'

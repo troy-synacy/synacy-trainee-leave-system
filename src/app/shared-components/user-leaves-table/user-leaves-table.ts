@@ -1,7 +1,7 @@
 import {Component, effect, inject, Input, OnInit} from '@angular/core';
 import {UserContext} from '../service/user-context.service';
 import {LeaveApplication} from '../../pages/manager/model/leave-application.interface';
-import {NgForOf} from '@angular/common';
+import {NgClass, NgForOf} from '@angular/common';
 import {ViewLeaveService} from '../service/view-leave.service';
 import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -12,7 +12,8 @@ import {UserSignalService} from '../service/user-signal.service';
   selector: 'app-user-leaves-table',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    NgClass
   ],
   templateUrl: './user-leaves-table.html',
   styleUrl: './user-leaves-table.scss'
