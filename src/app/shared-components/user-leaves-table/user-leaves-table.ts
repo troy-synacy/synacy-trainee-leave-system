@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, effect, inject, Input, OnInit} from '@angular/core';
 import {UserContext} from '../service/user-context.service';
 import {LeaveApplication} from '../../pages/manager/model/leave-application.interface';
 import {NgForOf} from '@angular/common';
@@ -6,6 +6,7 @@ import {ViewLeaveService} from '../service/view-leave.service';
 import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationData} from '../../models/confirmation-data.interface';
+import {UserSignalService} from '../service/user-signal.service';
 
 @Component({
   selector: 'app-user-leaves-table',
@@ -33,7 +34,19 @@ export class UserLeavesTable implements OnInit{
   leaves: LeaveApplication[] = [];
   currentUserId: number | undefined;
 
-  constructor(private viewLeaveService: ViewLeaveService, private userContext: UserContext) {}
+  constructor(private viewLeaveService: ViewLeaveService,
+              private userContext: UserContext,
+              private userSignal: UserSignalService) {
+    effect(async () => {
+      const userChangeListener = this.userSignal.refreshUsers();
+      if(userChangeListener){
+        this.currentUserId = await this.userContext.getUser()?.id;
+        if(this.currentUserId){
+          this.fetchLeaves();
+        }
+      }
+    });
+  }
 
   async ngOnInit(): Promise<void> {
     this.currentUserId = await this.userContext.getUser()?.id;

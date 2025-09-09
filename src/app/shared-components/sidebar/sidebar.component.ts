@@ -20,6 +20,7 @@ export class SidebarComponent implements OnInit{
 
   usersDropdown: User[] = [];
   selectedId: number | null = null;
+  newUser: boolean = false;
   currentUser: User | undefined;
   isInitialUserSet?: boolean;
   adminDefaultPath: string = '/admin/view-employees';
@@ -60,6 +61,7 @@ export class SidebarComponent implements OnInit{
       if (user) {
         this.userContext.setUser(user);
         this.currentUser = user;
+        this.newUser = true;
         this.loadUsers();
       }
     }
@@ -68,9 +70,17 @@ export class SidebarComponent implements OnInit{
       this.route.navigate([this.adminDefaultPath]);
     }
     else if (this.currentUser?.role == 'MANAGER') {
+      if(this.newUser){
+        this.userSignalService.triggerRefreshUsers();
+        this.newUser = false;
+      }
       this.route.navigate([this.managerDefaultPath]);
     }
     else {
+      if(this.newUser){
+        this.userSignalService.triggerRefreshUsers();
+        this.newUser = false;
+      }
       this.route.navigate([this.employeeDefaultPath]);
     }
   }

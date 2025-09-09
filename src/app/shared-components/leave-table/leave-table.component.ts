@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, effect, inject, Input} from '@angular/core';
 import {LeaveApplication} from '../../pages/manager/model/leave-application.interface';
 import {LeaveApplicationService} from '../../services/leave-application.service';
 import {UserContext} from '../service/user-context.service';
@@ -8,6 +8,7 @@ import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-mod
 import {ConfirmationData} from '../../models/confirmation-data.interface';
 import {PaginatorComponent} from '../paginator/paginator.component';
 import {PageEvent} from '@angular/material/paginator';
+import {UserSignalService} from '../service/user-signal.service';
 
 @Component({
   selector: 'app-leave-table',
@@ -19,7 +20,7 @@ import {PageEvent} from '@angular/material/paginator';
   templateUrl: './leave-table.component.html',
   styleUrl: './leave-table.component.scss'
 })
-export class LeaveTableComponent implements OnInit{
+export class LeaveTableComponent{
   @Input() userRole?: string = '';
 
   private dialog = inject(MatDialog);
@@ -49,14 +50,14 @@ export class LeaveTableComponent implements OnInit{
   }
 
   constructor(private readonly leaveApplicationService: LeaveApplicationService,
-              private readonly userContext: UserContext) {
-    this.currentUserId = this.userContext.getUser()?.id;
-    console.log(this.currentUserId);
-  }
+              private readonly userContext: UserContext,
+              private readonly userSignalService: UserSignalService) {
 
-  ngOnInit() {
-    console.log(this.currentUserId);
-    this.fetchLeaves();
+    effect(() => {
+      this.currentUserId = this.userContext.getUser()?.id;
+      const userChangeListener = this.userSignalService.refreshUsers();
+      if (userChangeListener){this.fetchLeaves();}
+    });
   }
 
   onPageChange(event: PageEvent) {
