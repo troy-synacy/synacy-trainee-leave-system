@@ -44,7 +44,7 @@ export class ManagerEmployeesLeaveHistoryComponent implements OnInit{
   }
 
   fetchLeaves(){
-    this.leaveApplicationService.getAllLeaveApplicationsByManagerAndStatus(this.currentUserId, this.status, this.pageNumber ?? 1, this.pageSize).subscribe({
+    this.leaveApplicationService.getAllNonPendingLeaveApplicationByManagerId(this.currentUserId, this.pageNumber ?? 1, this.pageSize).subscribe({
       next: (response) => {
         this.pageNumber = response.pageNumber;
         this.totalUserCount = response.totalCount
