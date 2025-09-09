@@ -33,7 +33,7 @@ export class LeaveTableComponent{
   pageNumber: number | undefined;
   totalUserCount: number | undefined;
   pageSize = 5;
-  currentUserId: number;
+  currentUserId!: number;
 
   approved: ConfirmationData = {
     title: 'Approve Leave Application',
@@ -53,8 +53,8 @@ export class LeaveTableComponent{
               private readonly userContext: UserContext,
               private readonly userSignalService: UserSignalService) {
 
-    effect(() => {
-      this.currentUserId = this.userContext.getUser()?.id;
+    effect( async () => {
+      this.currentUserId = this.userContext.getUser().id;
       const userChangeListener = this.userSignalService.refreshUsers();
       if (userChangeListener){this.fetchLeaves();}
     });
