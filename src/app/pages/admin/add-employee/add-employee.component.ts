@@ -5,6 +5,8 @@ import {AdminService} from '../service/admin.service';
 import {Manager} from '../models/manager.interface';
 import {UserSignalService} from '../../../shared-components/service/user-signal.service';
 import {NotificationService} from '../../../services/notification.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ApiError} from '../../../models/api-error.interface';
 
 @Component({
   selector: 'app-add-employee',
@@ -21,6 +23,8 @@ import {NotificationService} from '../../../services/notification.service';
 export class AddEmployeeComponent implements OnInit{
   userForm: FormGroup;
   managers: Manager[] = [];
+
+  userNameNotFoundErrorCode: string = 'SAME_USER_NAME';
 
   constructor(private readonly router: Router,
               private readonly adminService: AdminService,
@@ -71,8 +75,11 @@ export class AddEmployeeComponent implements OnInit{
         this.notificationService.success("Employee successfully created!");
         this.userSignalService.triggerRefreshUsers();
       },
-      error: () => {
-        console.log("Error saving product!");
+      error: (errorResponse: HttpErrorResponse) => {
+        const error: ApiError = (errorResponse.error || {}) as ApiError;
+        if(error.errorCode == this.userNameNotFoundErrorCode){
+          this.notificationService.error("User name already exists");
+        }
       }
     })
   }
