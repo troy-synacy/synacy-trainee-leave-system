@@ -29,8 +29,8 @@
   th, td {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #ddd;
-    vertical-align: middle;     // ✅ centers content vertically
-    text-align: center;         // ✅ aligns everything to center
+    vertical-align: middle;
+    text-align: center;
   }
 
   th {
@@ -41,7 +41,7 @@
   }
 
   tbody tr:nth-child(even) {
-    background-color: #f9f9f9; // striped effect
+    background-color: #f9f9f9;
   }
 }
 

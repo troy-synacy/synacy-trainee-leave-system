@@ -19,22 +19,22 @@
     <label class="section-label">HR</label>
     <nav class="nav">
       <add-button [buttonLabel]="'Manage Employees'" [route]="'/admin/view-employees'"></add-button>
-      <add-button [buttonLabel]="'Review Leave Requests'" [route]="'/admin/view-leaves'"></add-button>
-      <add-button [buttonLabel]="'Check Leave History'" [route]="'/admin/leave-history'"></add-button>
+      <add-button [buttonLabel]="'Leave Requests'" [route]="'/admin/view-leaves'"></add-button>
+      <add-button [buttonLabel]="'Leave History'" [route]="'/admin/leave-history'"></add-button>
     </nav>
   } @else if(currentUser?.role == "MANAGER") {
     <label class="section-label">MANAGER</label>
     <nav class="nav">
-      <add-button [buttonLabel]="'Apply for Leave'" [route]="'/manager/apply-leave'"></add-button>
-      <add-button [buttonLabel]="'Track My Leaves'" [route]="'/manager/my-leave'"></add-button>
-      <add-button [buttonLabel]="'Review All Leaves'" [route]="'/manager/leave'"></add-button>
-      <add-button [buttonLabel]="'Check Leave History'" [route]="'/manager/leave-history'"></add-button>
+      <add-button [buttonLabel]="'Apply Leave'" [route]="'/manager/apply-leave'"></add-button>
+      <add-button [buttonLabel]="'My Leaves'" [route]="'/manager/my-leave'"></add-button>
+      <add-button [buttonLabel]="'Employee Leaves'" [route]="'/manager/leave'"></add-button>
+      <add-button [buttonLabel]="'Leave History'" [route]="'/manager/leave-history'"></add-button>
     </nav>
   } @else {
     <label class="section-label">EMPLOYEE</label>
     <nav class="nav">
-      <add-button [buttonLabel]="'Apply for Leave'" [route]="'/employee/apply-leave'"></add-button>
-      <add-button [buttonLabel]="'Track My Leaves'" [route]="'/employee/view-leaves'"></add-button>
+      <add-button [buttonLabel]="'Apply Leave'" [route]="'/employee/apply-leave'"></add-button>
+      <add-button [buttonLabel]="'My Leaves'" [route]="'/employee/view-leaves'"></add-button>
     </nav>
   }
 </aside>
