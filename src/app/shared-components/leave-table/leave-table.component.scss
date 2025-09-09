@@ -27,12 +27,13 @@
   thead {
     background-color: #666666;
     color: #fff;
-    text-align: left;
 
     th {
       padding: 12px 16px;
       font-weight: 600;
       font-size: 0.95rem;
+      text-align: center;       // 👈 all headers centered
+      vertical-align: middle;
     }
   }
 
@@ -48,11 +49,21 @@
         padding: 10px 16px;
         font-size: 0.9rem;
         color: #333;
+        text-align: center;       // 👈 all cells centered
+        vertical-align: middle;
       }
 
       td:last-child {
-        text-align: center; // action button centered
+        text-align: center;       // action button centered
       }
+
+      .status {
+        font-weight: 600;
+        text-transform: capitalize;
+
+        &.pending { color: orange; }
+      }
+
     }
   }
 }

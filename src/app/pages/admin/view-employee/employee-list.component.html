@@ -13,8 +13,8 @@
     <th>Name</th>
     <th>Role</th>
     <th>Manager</th>
-    <th>Total Leave</th>
-    <th>Current</th>
+    <th>Total Leaves</th>
+    <th>Available Leaves</th>
     <th>Action</th>
   </tr>
   </thead>
@@ -28,7 +28,7 @@
         <td>{{ user.totalLeaveCredits }}</td>
         <td>{{ user.remainingLeaveCredits }}</td>
         <td>
-          <button [routerLink]="'/admin/edit-employee/' + user.id">Edit</button>
+          <button class="editBtn" [routerLink]="'/admin/edit-employee/' + user.id">Edit</button>
         </td>
       </tr>
     }
