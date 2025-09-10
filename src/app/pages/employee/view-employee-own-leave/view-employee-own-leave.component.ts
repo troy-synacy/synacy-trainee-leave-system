@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
-import {UserLeavesTable} from '../../../shared-components/user-leaves-table/user-leaves-table';
-import {LeaveApplication} from '../../manager/model/leave-application.interface';
-import {UserContext} from '../../../shared-components/service/user-context.service';
+import {UserLeavesTable} from '../../../shared-components/user-leave-table/user-leaves-table';
+import {UserContext} from '../../../services/user-context.service';
+import {LeaveApplicationService} from '../../../services/leave-application.service';
+import {Observable} from 'rxjs';
+import {PaginatedLeaveApplication} from '../../../models/paginated-leave-application.interface';
 
 @Component({
   selector: 'app-view-employee-own-leave',
@@ -13,10 +15,13 @@ import {UserContext} from '../../../shared-components/service/user-context.servi
   styleUrl: './view-employee-own-leave.component.scss'
 })
 export class ViewEmployeeOwnLeaveComponent {
-  leaves: LeaveApplication[] = [];
-  userRole?: string;
+  currentUserId: number;
 
-  constructor(private readonly userContext: UserContext) {
-    this.userRole = this.userContext.getUser()?.role;
+  constructor(private readonly leaveApplicationService: LeaveApplicationService,
+    private readonly userContext: UserContext) {
+    this.currentUserId = this.userContext.getUser()?.id;
   }
+
+  leaves = (pageNumber: number, pageSize: number): Observable<PaginatedLeaveApplication> =>
+    this.leaveApplicationService.getLeaves(this.currentUserId, pageNumber, pageSize);
 }

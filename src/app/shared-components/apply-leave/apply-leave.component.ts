@@ -1,13 +1,13 @@
 import {Component, inject, Input, OnInit, signal} from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ManagerService } from '../../pages/manager/service/manager.service';
 import { DateValidators } from '../validators/date-validator';
-import {UserContext} from '../service/user-context.service';
+import {UserContext} from '../../services/user-context.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationData} from '../../models/confirmation-data.interface';
 import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
 import {NotificationService} from '../../services/notification.service';
 import {UserService} from '../../services/user.service';
+import {LeaveApplicationService} from '../../services/leave-application.service';
 
 @Component({
   selector: 'app-apply-leave',
@@ -40,7 +40,7 @@ export class ApplyLeaveComponent implements OnInit {
   exceedCreditsSignal = signal(false);
 
 
-  constructor(private readonly managerService: ManagerService, private readonly userContext: UserContext, private readonly userService: UserService
+  constructor(private readonly leaveApplicationsService: LeaveApplicationService, private readonly userContext: UserContext, private readonly userService: UserService
   ) {
     const id = this.userContext.getUser()?.id
     this.leaveForm = new FormGroup({
@@ -56,7 +56,7 @@ export class ApplyLeaveComponent implements OnInit {
   ngOnInit() {
     const userId = this.userContext.getUser()?.id;
     if (userId) {
-      this.userService.getUserById(userId).subscribe(user => {
+      this.userService.getCurrentUserById(userId).subscribe(user => {
         this.credits = user.remainingLeaveCredits;
       });
     }
@@ -93,13 +93,13 @@ export class ApplyLeaveComponent implements OnInit {
     this.isProcessing = true;
     const requestBody = this.leaveForm.getRawValue();
 
-    this.managerService.applyLeave(requestBody).subscribe({
+    this.leaveApplicationsService.applyLeave(requestBody).subscribe({
         next: () => {
           this.notificationService.success('Successfully Applied Leave Application');
 
           const userId = this.userContext.getUser()?.id;
           if (userId) {
-            this.userService.getUserById(userId).subscribe(user => {
+            this.userService.getCurrentUserById(userId).subscribe(user => {
               this.credits = user.remainingLeaveCredits;
             });
           }

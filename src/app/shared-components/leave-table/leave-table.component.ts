@@ -1,16 +1,18 @@
 import {Component, effect, inject, Input} from '@angular/core';
-import {LeaveApplication} from '../../pages/manager/model/leave-application.interface';
+import {LeaveApplication} from '../../models/leave-application.interface';
 import {LeaveApplicationService} from '../../services/leave-application.service';
-import {UserContext} from '../service/user-context.service';
+import {UserContext} from '../../services/user-context.service';
 import {MatButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
 import {ConfirmationData} from '../../models/confirmation-data.interface';
 import {PaginatorComponent} from '../paginator/paginator.component';
 import {PageEvent} from '@angular/material/paginator';
-import {UserSignalService} from '../service/user-signal.service';
+import {UserSignalService} from '../../services/user-signal.service';
 import {NgClass} from '@angular/common';
 import {NotificationService} from '../../services/notification.service';
+import {Observable} from 'rxjs';
+import {PaginatedLeaveApplication} from '../../models/paginated-leave-application.interface';
 
 @Component({
   selector: 'app-leave-table',
@@ -24,19 +26,19 @@ import {NotificationService} from '../../services/notification.service';
   styleUrl: './leave-table.component.scss'
 })
 export class LeaveTableComponent{
-  @Input() userRole?: string = '';
+  @Input({required: true})
+  data!: (pageNumber: number, pageSize: number) => Observable<PaginatedLeaveApplication>;
+
+  leaves: LeaveApplication[] = [];
+  pageNumber = 1;
+  pageSize = 5;
+  totalCount = 0;
+  currentUserId!: number;
 
   private dialog = inject(MatDialog);
 
   approveStatus = 'APPROVED';
   rejectStatus = 'REJECTED';
-  pendingStatus = 'PENDING';
-
-  leaves: LeaveApplication[] = [];
-  pageNumber: number | undefined;
-  totalUserCount: number | undefined;
-  pageSize = 5;
-  currentUserId!: number;
 
   approved: ConfirmationData = {
     title: 'Approve Leave Application',
@@ -72,29 +74,17 @@ export class LeaveTableComponent{
   }
 
   fetchLeaves() {
-    if (this.userRole == "HR") {
-      this.leaveApplicationService
-        .getLeaveApplicationsByStatus(this.pendingStatus, this.pageNumber ?? 1, this.pageSize)
-        .subscribe({
-          next: (response) => {
-            this.leaves = response.content;
-            this.pageNumber = response.pageNumber;
-            this.totalUserCount = response.totalCount;
-          }
-        });
-    } else {
-      this.leaveApplicationService
-        .getLeaveApplicationsByManagerIdAndStatus(this.currentUserId, this.pendingStatus, this.pageNumber ?? 1, this.pageSize)
-        .subscribe({
-          next: (response) => {
-            this.leaves = response.content;
-            this.pageNumber = response.pageNumber;
-            this.totalUserCount = response.totalCount;
-          }
-        });
-    }
+    this.data(this.pageNumber, this.pageSize).subscribe({
+      next: (response) => {
+        this.pageNumber = response.pageNumber;
+        this.totalCount = response.totalCount;
+        this.leaves = response.content;
+      },
+      error: () => {
+        console.log("Error fetching leaves!");
+      }
+    })
   }
-
 
   approve(id: number) {
     this.dialog.open(ConfirmationModalComponent, {
@@ -122,7 +112,7 @@ export class LeaveTableComponent{
       if(reject){
         this.leaveApplicationService.changeStatusOfLeaveApplication(id, this.rejectStatus).subscribe({
           next: () => {
-            this.notificationService.error("ERROR!");
+            this.notificationService.error("REJECTED!");
             this.fetchLeaves();
           }
         });

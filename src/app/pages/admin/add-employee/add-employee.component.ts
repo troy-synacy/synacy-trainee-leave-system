@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
-import {AdminService} from '../service/admin.service';
-import {Manager} from '../models/manager.interface';
-import {UserSignalService} from '../../../shared-components/service/user-signal.service';
+import {Manager} from '../../../models/manager.interface';
+import {UserSignalService} from '../../../services/user-signal.service';
 import {NotificationService} from '../../../services/notification.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ApiError} from '../../../models/api-error.interface';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -27,7 +27,7 @@ export class AddEmployeeComponent implements OnInit{
   userNameNotFoundErrorCode: string = 'SAME_USER_NAME';
 
   constructor(private readonly router: Router,
-              private readonly adminService: AdminService,
+              private readonly userService: UserService,
               private readonly userSignalService: UserSignalService,
               private readonly notificationService: NotificationService) {
     this.userForm = new FormGroup({
@@ -55,7 +55,7 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   loadManagers() {
-    this.adminService.getAllManagers().subscribe({
+    this.userService.getAllManagers().subscribe({
       next: (response: Manager[]) => {
         this.managers = response
       },
@@ -69,7 +69,7 @@ export class AddEmployeeComponent implements OnInit{
   saveUser () {
     const requestBody = this.userForm.getRawValue();
     console.log(requestBody);
-    this.adminService.saveUser(requestBody).subscribe({
+    this.userService.saveUser(requestBody).subscribe({
       next: () => {
         this.router.navigate(['/admin/view-employees']);
         this.notificationService.success("Employee successfully created!");

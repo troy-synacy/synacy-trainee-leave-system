@@ -1,14 +1,15 @@
 import {Injectable} from '@angular/core';
-import {LeaveApplication} from '../pages/manager/model/leave-application.interface';
+import {LeaveApplication} from '../models/leave-application.interface';
 import {HttpClient} from '@angular/common/http';
-import {PaginatedLeaveApplication} from '../pages/admin/models/paginated-leave-application.interface';
+import {PaginatedLeaveApplication} from '../models/paginated-leave-application.interface';
+import {LeaveRequest} from '../models/leave-application-request.interface';
 
 @Injectable({
   providedIn: "root"
 })
 
 export class LeaveApplicationService {
-  private URL: string = '/api/v1/leave/application';
+  private URL: string = '/api/v1/leave-application';
 
   constructor(private readonly http: HttpClient) {}
 
@@ -30,5 +31,16 @@ export class LeaveApplicationService {
 
   changeStatusOfLeaveApplication(id: number, status: string) {
     return this.http.put<LeaveApplication>(`${this.URL}/${id}/status?leaveStatus=${status}`, {});
+  }
+
+  applyLeave(leaveRequest: LeaveRequest) {
+    return this.http.post(this.URL, leaveRequest);
+  }
+
+  cancelLeave(userId: number | undefined, cancelStatus: string) {
+    return this.http.put<void>(`${this.URL}/${userId}/status?leaveStatus=${cancelStatus}`, {});
+  }
+  getLeaves(userId: number, page: number, max: number) {
+    return this.http.get<PaginatedLeaveApplication>(`${this.URL}/${userId}?page=${page}&max=${max}`);
   }
 }

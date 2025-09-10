@@ -1,12 +1,12 @@
 import {Component, effect, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ButtonComponent} from '../button/button.component';
-import {User} from '../../pages/admin/models/user.interface';
-import {UserContext} from '../service/user-context.service';
+import {User} from '../../models/user.interface';
+import {UserContext} from '../../services/user-context.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {SharedService} from '../service/shared.service';
-import {UserSignalService} from '../service/user-signal.service';
+import {UserSignalService} from '../../services/user-signal.service';
 import {Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit{
   employeeDefaultPath: string = '/employee/view-leaves';
 
   constructor(private userContext: UserContext,
-              private readonly sharedService: SharedService,
+              private readonly userService: UserService,
               private readonly userSignalService: UserSignalService,
               private readonly route: Router) {
     effect(() => {
@@ -42,7 +42,7 @@ export class SidebarComponent implements OnInit{
   }
 
   loadUsers() {
-    this.sharedService.getAllUsers().subscribe({
+    this.userService.getAllUsers().subscribe({
       next: (response) => {
         this.usersDropdown = response;
         if(!this.isInitialUserSet && response.length){
