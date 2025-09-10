@@ -22,6 +22,7 @@ export class AdminLeaveApplicationHistoryComponent implements OnInit{
   pageNumber = 1;
   totalUserCount: number | undefined;
   private pageSize = 5;
+  pendingStatus = 'PENDING';
 
   constructor(private readonly leaveApplicationService: LeaveApplicationService) {
   }
@@ -38,7 +39,7 @@ export class AdminLeaveApplicationHistoryComponent implements OnInit{
   }
 
   fetchLeaves(){
-    this.leaveApplicationService.getAllNonPendingLeaveApplications(this.pageNumber ?? 1, this.pageSize).subscribe({
+    this.leaveApplicationService.getLeaveApplicationsByStatusNot(this.pendingStatus, this.pageNumber ?? 1, this.pageSize).subscribe({
       next: (response) => {
         this.pageNumber = response.pageNumber;
         this.totalUserCount = response.totalCount
