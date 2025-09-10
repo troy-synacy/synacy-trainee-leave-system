@@ -23,7 +23,7 @@ export class ManagerEmployeesLeaveHistoryComponent implements OnInit{
   leaves: LeaveApplication[] = [];
   pageNumber = 1;
   totalUserCount: number | undefined;
-  status: 'APPROVED' | 'REJECTED' | 'CANCELLED' = 'APPROVED';
+  pendingStatus = 'PENDING';
   private pageSize = 5;
 
 
@@ -44,7 +44,7 @@ export class ManagerEmployeesLeaveHistoryComponent implements OnInit{
   }
 
   fetchLeaves(){
-    this.leaveApplicationService.getAllNonPendingLeaveApplicationByManagerId(this.currentUserId, this.pageNumber ?? 1, this.pageSize).subscribe({
+    this.leaveApplicationService.getLeaveApplicationByManagerIdByStatusNot(this.currentUserId,this.pendingStatus,  this.pageNumber ?? 1, this.pageSize).subscribe({
       next: (response) => {
         this.pageNumber = response.pageNumber;
         this.totalUserCount = response.totalCount
