@@ -9,7 +9,7 @@ This system lets people in an organization manage leave requests:
 
 ## Backend Repository
 This repository is the frontend. The backend API is here:
-- (https://github.com/Vince-Capin/leave-management-system)
+- [Backend Repository](https://github.com/Vince-Capin/leave-management-system)
 
 Make sure the backend is running and that the frontend is configured to call the correct API base URL (via environments or a dev proxy) when you integrate both.
 
@@ -21,7 +21,7 @@ Make sure the backend is running and that the frontend is configured to call the
 - Angular Material for consistent UI
 
 ## Tech Stack
-- Angular 18
+- Angular 18   [Angular Documentation](https://angular.dev/installation)
 - TypeScript 5.5
 - Angular Material
 
