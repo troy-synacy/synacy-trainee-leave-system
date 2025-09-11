@@ -13,6 +13,7 @@ import {NgClass} from '@angular/common';
 import {NotificationService} from '../../services/notification.service';
 import {Observable} from 'rxjs';
 import {PaginatedLeaveApplication} from '../../models/paginated-leave-application.interface';
+import {app} from '../../../../server';
 
 @Component({
   selector: 'app-leave-table',
@@ -86,14 +87,14 @@ export class LeaveTableComponent{
     })
   }
 
-  approve(id: number) {
+  approve(id: number, approverId: number) {
     this.dialog.open(ConfirmationModalComponent, {
       width: '360px',
       disableClose: true,
       data: this.approved,
     }).afterClosed().subscribe(reject => {
       if(reject){
-        this.leaveApplicationService.changeStatusOfLeaveApplication(id, this.approveStatus).subscribe({
+        this.leaveApplicationService.changeStatusOfLeaveApplication(id, this.approveStatus, approverId).subscribe({
           next: () =>{
             this.notificationService.success("APPROVED!");
             this.fetchLeaves();
@@ -103,14 +104,14 @@ export class LeaveTableComponent{
     });
   }
 
-  reject(id: number) {
+  reject(id: number, approverId: number) {
     this.dialog.open(ConfirmationModalComponent, {
       width: '360px',
       disableClose: true,
       data: this.rejected,
     }).afterClosed().subscribe(reject => {
       if(reject){
-        this.leaveApplicationService.changeStatusOfLeaveApplication(id, this.rejectStatus).subscribe({
+        this.leaveApplicationService.changeStatusOfLeaveApplication(id, this.rejectStatus, approverId).subscribe({
           next: () => {
             this.notificationService.error("REJECTED!");
             this.fetchLeaves();

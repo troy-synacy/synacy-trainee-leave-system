@@ -5,6 +5,7 @@ import {Manager} from '../../../models/manager.interface';
 import {UserRequestDTO} from '../../../models/user-request-DTO.interface';
 import {UserSignalService} from '../../../services/user-signal.service';
 import {UserService} from '../../../services/user.service';
+import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-edit-employee',
@@ -27,7 +28,8 @@ export class EditEmployeeComponent implements OnInit{
   constructor(private readonly router: Router,
               private readonly route: ActivatedRoute,
               private readonly userService: UserService,
-              private readonly userSignalService: UserSignalService) {
+              private readonly userSignalService: UserSignalService,
+              private readonly notificationService: NotificationService) {
     this.userId = this.route.snapshot.paramMap.get('id');
 
     this.userForm = new FormGroup({
@@ -89,9 +91,18 @@ export class EditEmployeeComponent implements OnInit{
 
   saveUser() {
     const requestBody: UserRequestDTO = this.userForm.getRawValue();
+
+    if(requestBody.role != 'HR'){
+      if(requestBody.leaveCredits == null || requestBody.managerId == null || requestBody.name == null || requestBody.role == null) {
+        this.notificationService.error("Missing fields!");
+        return;
+      }
+    }
+
     this.userService.updateUser(this.userId, requestBody).subscribe({
       next: () => {
         this.router.navigate(['admin/view-employees']);
+        this.notificationService.success("Employee successfully updated!");
         this.userSignalService.triggerRefreshUsers();
       },
       error: () => {

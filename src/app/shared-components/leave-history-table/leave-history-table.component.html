@@ -5,6 +5,7 @@
   <tr>
     <th>Applied By</th>
     <th>Manager</th>
+    <th>Approver</th>
     <th>Applied Date</th>
     <th>Start</th>
     <th>End</th>
@@ -21,6 +22,7 @@
       <tr *ngFor="let leave of leaves">
         <td>{{ leave.name }}</td>
         <td>{{ leave.manager }}</td>
+        <td>{{ leave.approver }}</td>
         <td>{{ leave.dateApplied }}</td>
         <td>{{ leave.startDate }}</td>
         <td>{{ leave.endDate }}</td>

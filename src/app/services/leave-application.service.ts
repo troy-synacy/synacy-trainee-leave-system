@@ -29,8 +29,8 @@ export class LeaveApplicationService {
     return this.http.get<PaginatedLeaveApplication>(`${this.URL}/${managerId}/history?status=${status}&page=${page}&max=${max}`)
   }
 
-  changeStatusOfLeaveApplication(id: number, status: string) {
-    return this.http.put<LeaveApplication>(`${this.URL}/${id}/status?leaveStatus=${status}`, {});
+  changeStatusOfLeaveApplication(id: number, status: string, approverId: number) {
+    return this.http.put<LeaveApplication>(`${this.URL}/${id}/${approverId}/status?leaveStatus=${status}`, {});
   }
 
   applyLeave(leaveRequest: LeaveRequest) {

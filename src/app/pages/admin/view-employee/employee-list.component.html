@@ -27,9 +27,11 @@
         <td>{{ user.manager }}</td>
         <td>{{ user.totalLeaveCredits }}</td>
         <td>{{ user.remainingLeaveCredits }}</td>
-        <td>
-          <button class="editBtn" [routerLink]="'/admin/edit-employee/' + user.id">Edit</button>
-        </td>
+        @if (user.id != 1 && user.role  != 'HR'){
+          <td>
+            <button class="editBtn" [routerLink]="'/admin/edit-employee/' + user.id">Edit</button>
+          </td>
+        }
       </tr>
     }
   </tbody>

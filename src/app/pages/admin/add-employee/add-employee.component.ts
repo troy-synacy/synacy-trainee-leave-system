@@ -7,6 +7,8 @@ import {NotificationService} from '../../../services/notification.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ApiError} from '../../../models/api-error.interface';
 import {UserService} from '../../../services/user.service';
+import {LeaveRequest} from '../../../models/leave-application-request.interface';
+import {UserRequestDTO} from '../../../models/user-request-DTO.interface';
 
 @Component({
   selector: 'app-add-employee',
@@ -23,6 +25,7 @@ import {UserService} from '../../../services/user.service';
 export class AddEmployeeComponent implements OnInit{
   userForm: FormGroup;
   managers: Manager[] = [];
+
 
   userNameNotFoundErrorCode: string = 'SAME_USER_NAME';
 
@@ -67,8 +70,15 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   saveUser () {
-    const requestBody = this.userForm.getRawValue();
-    console.log(requestBody);
+    const requestBody: UserRequestDTO = this.userForm.getRawValue();
+
+    if(requestBody.role != 'HR'){
+      if(requestBody.leaveCredits == null || requestBody.managerId == null || requestBody.name == null || requestBody.role == null) {
+        this.notificationService.error("Missing fields!");
+        return;
+      }
+    }
+
     this.userService.saveUser(requestBody).subscribe({
       next: () => {
         this.router.navigate(['/admin/view-employees']);
