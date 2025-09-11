@@ -29,8 +29,8 @@
   th, td {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #ddd;
-    text-align: center;       // ✅ center align
-    vertical-align: middle;   // ✅ keep text/buttons centered vertically
+    text-align: center;
+    vertical-align: middle;
   }
 
   th {
@@ -41,7 +41,7 @@
   }
 
   tbody tr:nth-child(even) {
-    background-color: #f9f9f9; // striped rows
+    background-color: #f9f9f9;
   }
 }
 

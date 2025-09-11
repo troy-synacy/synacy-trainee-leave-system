@@ -1,21 +1,21 @@
 .headLabel {
-  display: block;                     // full-width
-  width: 100%;                        // stretches across the parent
-  background-color: #34495e;          // dark blue-gray
+  display: block;
+  width: 100%;
+  background-color: #34495e;
   color: #fff;
-  text-align: left;                     // centers the text
-  padding: 10px 20px;                      // vertical padding
+  text-align: left;
+  padding: 10px 20px;
   font-weight: 600;
   font-size: 1.1rem;
-  border-radius: 6px;                  // rounded corners
-  box-sizing: border-box;              // include padding in width
-  margin-bottom: 15px;                 // spacing before next content
+  border-radius: 6px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
   font-family: 'Open Sans', sans-serif;
 }
-/* Form container */
+
 .addEmployee {
-  max-width: 600px;              // consistent width
-  margin: 2rem auto;             // center horizontally, give top/bottom space
+  max-width: 600px;
+  margin: 2rem auto;
   padding: 2rem;
   background-color: #fff;
   border-radius: 10px;
@@ -33,10 +33,9 @@
   form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;                // space between form groups
+    gap: 1.5rem;
   }
 
-  /* Form group styling */
   .formGroup {
     display: flex;
     flex-direction: column;
@@ -65,7 +64,7 @@
     input:focus,
     select:focus {
       outline: none;
-      border-color: #34495e;             // subtle brand color for focus
+      border-color: #34495e;
       box-shadow: 0 0 6px rgba(52, 73, 94, 0.25);
     }
 
@@ -74,7 +73,7 @@
     }
   }
 
-  /* Form actions (buttons) */
+
   .formActions {
     display: flex;
     justify-content: flex-end;
@@ -114,7 +113,6 @@
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .addEmployee {
     padding: 1.5rem;

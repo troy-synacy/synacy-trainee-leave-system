@@ -1,22 +1,22 @@
 .headLabel {
-  display: block;                     // full-width
-  width: 100%;                        // stretches across the parent
-  background-color: #34495e;          // dark blue-gray
-  color: #fff;
-  text-align: left;                     // centers the text
-  padding: 10px 20px;                      // vertical padding
+  display: block;
+  width: 100%;
+  background-color: #34495e;
+  color: #ecf0f1;
+  text-align: left;
+  padding: 12px 20px;
   font-weight: 600;
-  font-size: 1.1rem;
-  border-radius: 6px;                  // rounded corners
-  box-sizing: border-box;              // include padding in width
-  margin-bottom: 15px;
-  font-family: 'Open Sans', sans-serif// spacing before next content
+  font-size: 1.2rem;
+  border-radius: 6px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .btnRight {
-  display: flex;                 // use flex layout
-  justify-content: flex-end;     // push content to the right edge
-  margin-bottom: 15px;           // spacing below if needed
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
 }
 
 .employeeTable {
@@ -24,59 +24,57 @@
   border-collapse: collapse;
   margin-top: 1rem;
   font-family: 'Open Sans', sans-serif;
-  text-align: center; // 👈 center all columns
+  text-align: center;
 
   thead {
-    background-color: #666666;
-    color: #fff;
+    background-color: #2c3e50;
+    color: #ecf0f1;
 
     th {
       padding: 12px 16px;
       font-weight: 600;
-      font-size: 0.95rem;
-      text-align: center;       // 👈 aligns header text
-      vertical-align: middle;   // 👈 centers vertically
+      font-size: 1rem;
+      text-align: center;
+      vertical-align: middle;
     }
   }
 
   tbody {
     tr {
-      border-bottom: 1px solid #ddd;
+      background-color: #ffffff;
 
       &:nth-child(even) {
-        background-color: #f5f5f5; // striped rows
+        background-color: #f0f3f7;
       }
 
       td {
-        padding: 10px 16px;
-        font-size: 0.9rem;
-        color: #333;
-        text-align: center;       // 👈 aligns cell content
-        vertical-align: middle;   // 👈 keeps text aligned vertically
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        color: #2c3e50;
+        text-align: center;
+        vertical-align: middle;
       }
     }
+  }
+
+  tbody tr + tr td {
+    border-top: 1px solid #ddd;
   }
 }
 
 .editBtn {
-  background-color: #2c3e50;     // dark blue-gray
-  color: #fff;                   // white text
-  padding: 6px 14px;             // balanced padding
+  background-color: #34495e;
+  color: #ecf0f1;
+  padding: 6px 16px;
   border: none;
-  border-radius: 6px;            // smooth edges
-  font-size: 0.85rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
   font-family: 'Open Sans', sans-serif;
-  font-weight: 400;              // normal, not bold
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: #1f2d3d;   // darker hover
-    transform: translateY(-1px); // subtle lift
-  }
-
-  &:active {
-    transform: translateY(0);    // pressed look
+    background-color: #2c3e50;
   }
 }
-
