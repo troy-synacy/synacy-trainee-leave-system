@@ -1,23 +1,32 @@
-
-
 .header {
   height: var(--header-height);
   display: flex;
-  align-items: center;
+  align-items: center;   /* vertically center everything */
   gap: 1rem;
   padding: 0 1rem;
-  background: var(--surface);
+  background: var(--surface);  /* keep original color */
   border-bottom: 1px solid var(--border);
+  font-family: 'Open Sans', sans-serif;
+}
+
+.header-title {
+  font-size: 1.1rem;  /* slightly bolder for balance */
+  margin: 0;             /* remove default margin */
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #34495e;
 }
 
 .menu-btn {
-  font-size: 1.25rem;
+  font-size: 1.5rem;       /* slightly larger for better visual weight */
   line-height: 1;
-  padding: 0.35rem 0.6rem;
+  padding: 0.4rem 0.6rem;
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--surface); /* match header color for seamless look */
   border-radius: 6px;
   cursor: pointer;
+  display: flex;
+  align-items: center;     /* vertically center icon */
+  justify-content: center;
 
   &:hover {
     background: #f3f4f6;

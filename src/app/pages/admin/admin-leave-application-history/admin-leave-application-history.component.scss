@@ -1,14 +1,14 @@
 .headLabel {
-  display: block;                     // full-width
-  width: 100%;                        // stretches across the parent
-  background-color: #34495e;          // dark blue-gray
+  display: block;
+  width: 100%;
+  background-color: #34495e;
   color: #fff;
-  text-align: left;                     // centers the text
-  padding: 10px 20px;                      // vertical padding
+  text-align: left;
+  padding: 10px 20px;
   font-weight: 600;
   font-size: 1.1rem;
-  border-radius: 6px;                  // rounded corners
-  box-sizing: border-box;              // include padding in width
+  border-radius: 6px;
+  box-sizing: border-box;
   margin-bottom: 15px;
   font-family: 'Open Sans', sans-serif;
 }
@@ -29,25 +29,29 @@
   th, td {
     padding: 0.75rem 1rem;
     border-bottom: 1px solid #ddd;
-    vertical-align: middle;   // 👈 keeps text/buttons centered vertically
+    vertical-align: middle;
   }
 
   th {
-    background-color: #666666;
-    color: white;
+    background-color: #2c3e50;
+    color: #ecf0f1;
     font-weight: 600;
     font-size: 0.95rem;
-    text-align: center;       // 👈 consistent header alignment
+    text-align: center;
   }
 
   td {
     font-size: 0.9rem;
-    color: #333;
-    text-align: center;       // 👈 centers all cell content
+    color: #2c3e50;
+    text-align: center;
   }
 
   tbody tr:nth-child(even) {
-    background-color: #f9f9f9; // striped effect for readability
+    background-color: #f0f3f7;
+  }
+
+  tbody tr:hover {
+    background-color: #e8eff5;
   }
 }
 
@@ -61,8 +65,6 @@
   &.cancelled { color: gray; }
 }
 
-
-/* Cancel button */
 .cancelBtn {
   padding: 6px 14px;
   border: none;
