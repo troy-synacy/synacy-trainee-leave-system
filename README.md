@@ -8,8 +8,8 @@ This system lets people in an organization manage leave requests:
 - Admins can manage employees and view company-wide leave applications.
 
 ## Backend Repository
-This repository is the frontend. The backend API is here: (SSH Key)
-- git@github.com:Vince-Capin/leave-management-system.git 
+This repository is the frontend. The backend API is here:
+- (https://github.com/Vince-Capin/leave-management-system)
 
 Make sure the backend is running and that the frontend is configured to call the correct API base URL (via environments or a dev proxy) when you integrate both.
 
