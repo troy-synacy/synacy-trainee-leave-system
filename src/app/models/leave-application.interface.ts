@@ -3,6 +3,7 @@ export interface LeaveApplication{
   name: string;
   dateApplied: string;
   manager: string;
+  approver: string;
   startDate: string;
   endDate: string;
   numberOfDays: number;
