@@ -1,30 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {LeaveApplication} from '../model/leave-application.interface';
+import {Component} from '@angular/core';
 import {LeaveApplicationService} from '../../../services/leave-application.service';
-import {PageEvent} from '@angular/material/paginator';
-import {UserContext} from '../../../shared-components/service/user-context.service';
-import {NgClass, NgForOf} from '@angular/common';
-import {PaginatorComponent} from '../../../shared-components/paginator/paginator.component';
+import {UserContext} from '../../../services/user-context.service';
+import {Observable} from 'rxjs';
+import {PaginatedLeaveApplication} from '../../../models/paginated-leave-application.interface';
+import {LeaveHistoryTableComponent} from '../../../shared-components/leave-history-table/leave-history-table.component';
 
 @Component({
   selector: 'app-manager-employees-leave-history',
   standalone: true,
   imports: [
-    NgForOf,
-    PaginatorComponent,
-    NgClass
+    LeaveHistoryTableComponent
   ],
   templateUrl: './manager-employees-leave-history.component.html',
   styleUrl: './manager-employees-leave-history.component.scss'
 })
-export class ManagerEmployeesLeaveHistoryComponent implements OnInit{
+export class ManagerEmployeesLeaveHistoryComponent{
 
-  currentUserId: number;
-  leaves: LeaveApplication[] = [];
-  pageNumber = 1;
-  totalUserCount: number | undefined;
-  pendingStatus = 'PENDING';
-  private pageSize = 5;
+  private readonly pendingStatus = 'PENDING';
+  private readonly currentUserId: number;
 
 
   constructor(private readonly leaveApplicationService: LeaveApplicationService,
@@ -32,28 +25,7 @@ export class ManagerEmployeesLeaveHistoryComponent implements OnInit{
     this.currentUserId = this.userContext.getUser()?.id;
   }
 
-  ngOnInit() {
-    this.fetchLeaves();
-  }
-
-  onPageChange(event: PageEvent) {
-    this.pageNumber = event.pageIndex + 1;
-    this.pageSize = event.pageSize;
-
-    this.fetchLeaves();
-  }
-
-  fetchLeaves(){
-    this.leaveApplicationService.getLeaveApplicationByManagerIdByStatusNot(this.currentUserId,this.pendingStatus,  this.pageNumber ?? 1, this.pageSize).subscribe({
-      next: (response) => {
-        this.pageNumber = response.pageNumber;
-        this.totalUserCount = response.totalCount
-        this.leaves = response.content;
-      },
-      error: () => {
-        console.log("Error fetching leaves!");
-      }
-    })
-  }
+  leaves = (pageNumber: number, pageSize: number): Observable<PaginatedLeaveApplication> =>
+  this.leaveApplicationService.getLeaveApplicationByManagerIdByStatusNot(this.currentUserId, this.pendingStatus, pageNumber, pageSize);
 
 }

@@ -1,25 +1,31 @@
-import {Component, effect, inject, Input, OnInit} from '@angular/core';
-import {UserContext} from '../service/user-context.service';
-import {LeaveApplication} from '../../pages/manager/model/leave-application.interface';
+import {Component, effect, Input, OnInit} from '@angular/core';
+import {UserContext} from '../../services/user-context.service';
+import {LeaveApplication} from '../../models/leave-application.interface';
 import {NgClass, NgForOf} from '@angular/common';
-import {ViewLeaveService} from '../service/view-leave.service';
 import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationData} from '../../models/confirmation-data.interface';
-import {UserSignalService} from '../service/user-signal.service';
+import {UserSignalService} from '../../services/user-signal.service';
+import {LeaveApplicationService} from '../../services/leave-application.service';
+import {PaginatorComponent} from '../paginator/paginator.component';
+import {PageEvent} from '@angular/material/paginator';
+import {Observable} from 'rxjs';
+import {PaginatedLeaveApplication} from '../../models/paginated-leave-application.interface';
 
 @Component({
   selector: 'app-user-leaves-table',
   standalone: true,
   imports: [
     NgForOf,
-    NgClass
+    NgClass,
+    PaginatorComponent
   ],
   templateUrl: './user-leaves-table.html',
   styleUrl: './user-leaves-table.scss'
 })
 export class UserLeavesTable implements OnInit{
-  @Input() userRole?: string;
+  @Input({required: true})
+  data!: (pageNumber: number, pageSize: number) => Observable<PaginatedLeaveApplication>;
 
   canceled: ConfirmationData = {
     title: 'Cancel Leave Application',
@@ -29,12 +35,15 @@ export class UserLeavesTable implements OnInit{
   }
 
   leaves: LeaveApplication[] = [];
+  pageNumber = 1;
+  totalCount= 0;
+  pageSize = 5;
   currentUserId: number | undefined;
   cancelStatus = 'CANCELLED';
 
-  constructor(private viewLeaveService: ViewLeaveService,
-              private userContext: UserContext,
+  constructor(private userContext: UserContext,
               private userSignal: UserSignalService,
+              private leaveApplicationService: LeaveApplicationService,
               private modal: MatDialog) {
     effect(async () => {
       const userChangeListener = this.userSignal.refreshUsers();
@@ -54,29 +63,35 @@ export class UserLeavesTable implements OnInit{
     }
   }
 
-  fetchLeaves() {
-    this.viewLeaveService.getLeaves(this.currentUserId).subscribe({
-      next: (data) => {
-        console.log('Fetched leaves:', data);
-        this.leaves = data;
-      },
-      error: (err) => console.error('Error fetching leaves:', err)
-    });
+  onPageChange(event: PageEvent) {
+    this.pageNumber = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+
+    this.fetchLeaves();
   }
 
-  cancelLeave(id: number): void {
+  fetchLeaves(){
+    this.data(this.pageNumber, this.pageSize).subscribe({
+      next: (response)=>{
+        this.pageSize = response.pageNumber;
+        this.totalCount = response.totalCount;
+        this.leaves = response.content
+      }
+    })
+  }
+
+  cancelLeave(userId: number): void {
     this.modal.open(ConfirmationModalComponent, {
       width: '360px',
       disableClose: true,
       data: this.canceled
     }).afterClosed().subscribe(confirmed => {
       if (confirmed) {
-        this.viewLeaveService.cancelLeave(id, this.cancelStatus).subscribe({
+        this.leaveApplicationService.cancelLeave(userId, this.cancelStatus).subscribe({
           next: () => this.fetchLeaves(),
           error: (err) => console.error('Error canceling leave:', err)
         });
       }
     });
   }
-
 }

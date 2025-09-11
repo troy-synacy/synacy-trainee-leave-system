@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ButtonComponent} from '../../../shared-components/button/button.component';
-import {User} from '../models/user.interface';
-import {AdminService} from '../service/admin.service';
-import {PaginatedUsers} from '../models/paginated-users.interface';
+import {User} from '../../../models/user.interface';
+import {PaginatedUsers} from '../../../models/paginated-users.interface';
 import {RouterLink} from '@angular/router';
 import {PaginatorComponent} from '../../../shared-components/paginator/paginator.component';
 import {PageEvent} from '@angular/material/paginator';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -24,7 +24,7 @@ export class EmployeeListComponent implements OnInit{
   totalUserCount: number | undefined;
   pageSize = 5;
 
-  constructor(private readonly adminService: AdminService) {}
+  constructor(private readonly userService: UserService) {}
 
   ngOnInit() {
     this.loadUsers();
@@ -36,7 +36,7 @@ export class EmployeeListComponent implements OnInit{
   }
 
   loadUsers(){
-    this.adminService.getAllUsers(this.pageNumber ?? 1, this.pageSize).subscribe({
+    this.userService.getPaginatedUsers(this.pageNumber ?? 1, this.pageSize).subscribe({
       next: (response: PaginatedUsers) => {
         this.pageNumber = response.pageNumber;
         this.totalUserCount = response.totalCount

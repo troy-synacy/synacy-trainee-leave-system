@@ -1,4 +1,4 @@
-import {LeaveApplication} from '../../manager/model/leave-application.interface';
+import {LeaveApplication} from './leave-application.interface';
 
 export interface PaginatedLeaveApplication{
   totalCount: number,

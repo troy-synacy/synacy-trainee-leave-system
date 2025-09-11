@@ -1,9 +1,7 @@
-import {Component, effect, untracked} from '@angular/core';
+import {Component} from '@angular/core';
 import {ApplyLeaveComponent} from '../../../shared-components/apply-leave/apply-leave.component';
-import {LeaveApplication} from '../../manager/model/leave-application.interface';
-import {UserContext} from '../../../shared-components/service/user-context.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {NotificationService} from '../../../services/notification.service';
+import {LeaveApplication} from '../../../models/leave-application.interface';
+import {UserContext} from '../../../services/user-context.service';
 
 @Component({
   selector: 'app-apply-employee-leave',

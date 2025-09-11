@@ -1,0 +1,39 @@
+<div class="headLabel">Leave History</div>
+
+<table class="leavesApplicationTable">
+  <thead>
+  <tr>
+    <th>Applied By</th>
+    <th>Manager</th>
+    <th>Applied Date</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Total days</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let leave of leaves">
+    <td>{{ leave.name }}</td>
+    <td>{{ leave.manager }}</td>
+    <td>{{ leave.dateApplied }}</td>
+    <td>{{ leave.startDate }}</td>
+    <td>{{ leave.endDate }}</td>
+    <td>{{ leave.numberOfDays }}</td>
+    <td>
+      <span class="status"
+            [ngClass]="leave.status.toLowerCase()">
+        {{ leave.status }}
+      </span>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<app-paginator
+    [length]="totalCount"
+    [pageIndex]="pageNumber - 1"
+    [pageSize]="pageSize"
+    (pageChange)="onPageChange($event)">
+</app-paginator>
+
