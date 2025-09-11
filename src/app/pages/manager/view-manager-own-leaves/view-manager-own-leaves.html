@@ -1,1 +1,11 @@
-<app-user-leaves-table [data]="leaves"></app-user-leaves-table>
+<app-user-leaves-table [leaves]="leaves"
+                       (cancel)="cancelLeave($event)">
+</app-user-leaves-table>
+
+<app-paginator
+  [length]="totalCount || 0"
+  [pageIndex]="pageNumber ? pageNumber - 1 : 0"
+  [pageSize]="5"
+  [pageSizeOptions]="[5, 10, 20]"
+  (pageChange)="onPageChange($event)">
+</app-paginator>

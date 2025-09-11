@@ -1,4 +1,4 @@
-<div class="headLabel">View All Leaves</div>
+<div class="headLabel">My Leaves</div>
 
 <table class="leavesApplicationTable">
     <thead>
@@ -45,10 +45,3 @@
     </tbody>
   </table>
 
-<app-paginator
-  [length]="totalCount || 0"
-  [pageIndex]="pageNumber ? pageNumber - 1 : 0"
-  [pageSize]="5"
-  [pageSizeOptions]="[5, 10, 20]"
-  (pageChange)="onPageChange($event)">
-</app-paginator>

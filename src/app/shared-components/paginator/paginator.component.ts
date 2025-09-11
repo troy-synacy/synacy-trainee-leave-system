@@ -11,9 +11,9 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
   styleUrl: './paginator.component.scss'
 })
 export class PaginatorComponent {
-  @Input() length: number = 0;           // total items
-  @Input() pageIndex: number = 0;        // current page
-  @Input() pageSize: number = 5;         // default page size
+  @Input() length: number = 0;
+  @Input() pageIndex: number = 0;
+  @Input() pageSize: number = 5;
   @Input() pageSizeOptions: number[] = [5, 10, 20];
 
   @Output() pageChange = new EventEmitter<PageEvent>();

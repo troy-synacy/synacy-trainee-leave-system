@@ -13,20 +13,26 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let leave of leaves">
-    <td>{{ leave.name }}</td>
-    <td>{{ leave.manager }}</td>
-    <td>{{ leave.dateApplied }}</td>
-    <td>{{ leave.startDate }}</td>
-    <td>{{ leave.endDate }}</td>
-    <td>{{ leave.numberOfDays }}</td>
-    <td>
+    @if (leaves.length === 0) {
+      <tr>
+        <td colspan="8" style="text-align:center; padding: 1rem;">No leave applications found.</td>
+      </tr>
+    } @else {
+      <tr *ngFor="let leave of leaves">
+        <td>{{ leave.name }}</td>
+        <td>{{ leave.manager }}</td>
+        <td>{{ leave.dateApplied }}</td>
+        <td>{{ leave.startDate }}</td>
+        <td>{{ leave.endDate }}</td>
+        <td>{{ leave.numberOfDays }}</td>
+        <td>
       <span class="status"
             [ngClass]="leave.status.toLowerCase()">
         {{ leave.status }}
       </span>
-    </td>
-  </tr>
+        </td>
+      </tr>
+    }
   </tbody>
 </table>
 
