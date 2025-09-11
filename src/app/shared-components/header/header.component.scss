@@ -7,28 +7,30 @@
   background: var(--surface);  /* keep original color */
   border-bottom: 1px solid var(--border);
   font-family: 'Open Sans', sans-serif;
-}
-
-.header-title {
-  font-size: 1.1rem;  /* slightly bolder for balance */
-  margin: 0;             /* remove default margin */
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  color: #34495e;
+  position: relative; /* allows absolute children */
 }
 
 .menu-btn {
-  font-size: 1.5rem;       /* slightly larger for better visual weight */
+  font-size: 1.5rem;
   line-height: 1;
   padding: 0.4rem 0.6rem;
   border: 1px solid var(--border);
-  background: var(--surface); /* match header color for seamless look */
+  background: var(--surface);
   border-radius: 6px;
   cursor: pointer;
   display: flex;
-  align-items: center;     /* vertically center icon */
+  align-items: center;
   justify-content: center;
+}
 
-  &:hover {
-    background: #f3f4f6;
-  }
+.menu-btn:hover {
+  background: #f3f4f6;
+}
+
+.coffee-emoji {
+  position: absolute;
+  left: 5rem;
+  top: 50%;
+  transform: translateY(-50%); /* keep it vertically centered */
+  font-size: 2.1rem;
 }
