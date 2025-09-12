@@ -37,9 +37,6 @@ export class LeaveApplicationService {
     return this.http.post(this.URL, leaveRequest);
   }
 
-  cancelLeave(userId: number | undefined, cancelStatus: string) {
-    return this.http.put<void>(`${this.URL}/${userId}/status?leaveStatus=${cancelStatus}`, {});
-  }
   getLeaves(userId: number, page: number, max: number) {
     return this.http.get<PaginatedLeaveApplication>(`${this.URL}/${userId}?page=${page}&max=${max}`);
   }

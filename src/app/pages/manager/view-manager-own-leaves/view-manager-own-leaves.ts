@@ -75,7 +75,7 @@ export class ViewManagerOwnLeavesComponent {
       data: this.canceled
     }).afterClosed().subscribe(confirmed => {
       if (confirmed) {
-        this.leaveApplicationService.cancelLeave(leaveId, this.cancelStatus).subscribe({
+        this.leaveApplicationService.changeStatusOfLeaveApplication(leaveId, this.cancelStatus, this.currentUserId).subscribe({
           next: () => this.fetchLeaves(),
           error: (err) => console.error('Error canceling leave:', err)
         });
