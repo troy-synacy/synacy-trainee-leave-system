@@ -8,6 +8,8 @@ import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-mod
 import {NotificationService} from '../../services/notification.service';
 import {UserService} from '../../services/user.service';
 import {LeaveApplicationService} from '../../services/leave-application.service';
+import {ApiError} from '../../models/api-error.interface';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-apply-leave',
@@ -36,6 +38,7 @@ export class ApplyLeaveComponent implements OnInit {
   leaveForm: FormGroup;
   isProcessing = false;
   credits = 0;
+  leaveDatesOverlapErrorCode: string = 'LEAVE_DATES_OVERLAP';
 
   exceedCreditsSignal = signal(false);
 
@@ -106,9 +109,11 @@ export class ApplyLeaveComponent implements OnInit {
 
           this.leaveForm.reset({ userId: this.userContext.getUser()?.id });
         },
-      error: () => {
-        alert('There was an error applying for leave.');
-      },
+      error: (errorResponse: HttpErrorResponse) => {
+        const error: ApiError = (errorResponse.error || {}) as ApiError;
+        if(error.errorCode == this.leaveDatesOverlapErrorCode){
+          this.notificationService.error("Leave Dates Overlap From Existing Applications");
+        }      },
       complete: () => {
         this.isProcessing = false;
       }
