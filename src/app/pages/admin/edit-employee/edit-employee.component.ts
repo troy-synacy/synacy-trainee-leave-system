@@ -93,7 +93,7 @@ export class EditEmployeeComponent implements OnInit{
     const requestBody: UserRequestDTO = this.userForm.getRawValue();
 
     if(requestBody.role != 'HR'){
-      if(requestBody.leaveCredits == null || requestBody.managerId == null || requestBody.name == null || requestBody.role == null) {
+      if(requestBody.leaveCredits == null || requestBody.name == null || requestBody.role == null) {
         this.notificationService.error("Missing fields!");
         return;
       }
