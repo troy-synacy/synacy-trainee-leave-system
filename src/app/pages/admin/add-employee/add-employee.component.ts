@@ -26,7 +26,6 @@ export class AddEmployeeComponent implements OnInit{
   userForm: FormGroup;
   managers: Manager[] = [];
 
-
   userNameNotFoundErrorCode: string = 'SAME_USER_NAME';
 
   constructor(private readonly router: Router,
