@@ -77,7 +77,7 @@ export class ViewEmployeeOwnLeaveComponent {
       data: this.canceled
     }).afterClosed().subscribe(confirmed => {
       if (confirmed) {
-        this.leaveApplicationService.cancelLeave(leaveId, this.cancelStatus).subscribe({
+        this.leaveApplicationService.changeStatusOfLeaveApplication(leaveId, this.cancelStatus, this.currentUserId).subscribe({
           next: () => this.userSignalService.triggerRefreshUsers(),
           error: (err) => console.error('Error canceling leave:', err)
         });
